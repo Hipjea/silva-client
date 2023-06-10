@@ -5,7 +5,7 @@ import {
   Link,
   Outlet,
 } from "react-router-dom"
-import { AuthProvider, AuthStatus, RequireAuth } from "./Auth"
+import { AuthProvider, AuthStatus, RequireAuth, RequireAdmin } from "./Auth"
 import LoginForm from "./components/LoginForm"
 
 
@@ -26,10 +26,18 @@ export default function App() {
               </RequireAuth>
             }
           />
+          <Route
+            path="/admin"
+            element={
+              <RequireAdmin>
+                <AdminPage />
+              </RequireAdmin>
+            }
+          />
         </Route>
       </Routes>
     </AuthProvider>
-  );
+  )
 }
 
 function Layout() {
@@ -44,11 +52,14 @@ function Layout() {
         <li>
           <Link to="/protected">Protected Page</Link>
         </li>
+        <li>
+          <Link to="/admin">Admin Page</Link>
+        </li>
       </ul>
 
       <Outlet />
     </div>
-  );
+  )
 }
 
 function LoginPage() {
@@ -58,9 +69,13 @@ function LoginPage() {
 }
 
 function PublicPage() {
-  return <h3>Public</h3>;
+  return <h3>Public</h3>
 }
 
 function ProtectedPage() {
-  return <h3>Protected</h3>;
+  return <h3>Protected</h3>
+}
+
+function AdminPage() {
+  return <h3>Admin</h3>
 }

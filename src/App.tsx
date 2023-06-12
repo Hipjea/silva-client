@@ -7,6 +7,7 @@ import {
 } from "react-router-dom"
 import { AuthProvider, AuthStatus, RequireAuth, RequireAdmin } from "./Auth"
 import LoginForm from "./components/LoginForm"
+import Scenarii from "./components/Scenarii"
 
 
 export default function App() {
@@ -18,6 +19,7 @@ export default function App() {
         <Route element={<Layout />}>
           <Route path="/" element={<PublicPage />} />
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/scenarii" element={<ScenariiPage />} />
           <Route
             path="/protected"
             element={
@@ -55,6 +57,9 @@ function Layout() {
         <li>
           <Link to="/admin">Admin Page</Link>
         </li>
+        <li>
+          <Link to="/scenarii">Scenarii Page</Link>
+        </li>
       </ul>
 
       <Outlet />
@@ -78,4 +83,8 @@ function ProtectedPage() {
 
 function AdminPage() {
   return <h3>Admin</h3>
+}
+
+function ScenariiPage() {
+  return <Scenarii></Scenarii>
 }

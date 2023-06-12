@@ -5,7 +5,8 @@ import {
   Navigate
 } from "react-router-dom"
 import Cookies from "js-cookie"
-import { CLIENT_TOKEN_NAME } from "./config"
+import { API_URL, CLIENT_TOKEN_NAME } from "./config"
+import axios from "axios"
 
 interface AuthContextType {
   user: any
@@ -66,7 +67,6 @@ function AuthStatus() {
 }
 
 function RequireAuth({ children }: { children: JSX.Element }) {
-  let auth = useAuth()
   let location = useLocation()
   const authToken = Cookies.get(CLIENT_TOKEN_NAME)
 
@@ -81,6 +81,36 @@ function RequireAuth({ children }: { children: JSX.Element }) {
   return children
 }
 
+function RequireAdmin({ children }: { children: JSX.Element }) {
+  let location = useLocation()
+  const authToken = Cookies.get(CLIENT_TOKEN_NAME)
+
+  if (!authToken) {
+    // Redirect them to the /login page, but save the current location they were
+    // trying to go to when they were redirected. This allows us to send them
+    // along to that page after they login, which is a nicer user experience
+    // than dropping them off on the home page.
+    return <Navigate to="/login" state={{ from: location }} replace />
+  }
+
+  const endpoint = `${API_URL}/admin`
+  const config = {
+    headers: {
+      Authorization: `Bearer ${authToken}`
+    }
+  }
+
+  let status = false
+  axios.get(endpoint, config)
+    .then(function (response) {
+      status = true
+    })
+    .catch(function (_) {
+      window.location.replace('/')
+    })
+
+  return children
+}
 
 const authProvider = {
   isAuthenticated: false,
@@ -94,4 +124,4 @@ const authProvider = {
   },
 };
 
-export { authProvider, useAuth, AuthProvider, AuthStatus, RequireAuth }
+export { authProvider, useAuth, AuthProvider, AuthStatus, RequireAuth, RequireAdmin }

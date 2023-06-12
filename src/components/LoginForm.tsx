@@ -39,7 +39,7 @@ export default function LoginForm() {
 
     if (authHeader.startsWith("Bearer ")) {
       const accessToken = authHeader.substring(7, authHeader.length);
-      Cookies.set(CLIENT_TOKEN_NAME, accessToken)
+      Cookies.set(CLIENT_TOKEN_NAME, accessToken, { secure: true })
 
       auth.signin(data.email, () => {
         // Send them back to the page they tried to visit when they were

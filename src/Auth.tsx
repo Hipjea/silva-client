@@ -67,7 +67,6 @@ function AuthStatus() {
 }
 
 function RequireAuth({ children }: { children: JSX.Element }) {
-  let auth = useAuth()
   let location = useLocation()
   const authToken = Cookies.get(CLIENT_TOKEN_NAME)
 
@@ -100,12 +99,14 @@ function RequireAdmin({ children }: { children: JSX.Element }) {
       Authorization: `Bearer ${authToken}`
     }
   }
+
+  let status = false
   axios.get(endpoint, config)
     .then(function (response) {
-      console.log(response)
+      status = true
     })
-    .catch(function (error) {
-      console.log("error")
+    .catch(function (_) {
+      window.location.replace('/')
     })
 
   return children

@@ -1,12 +1,12 @@
-import * as React from "react"
+import * as React from 'react'
 import {
   Routes,
   Route,
   Link,
   Outlet,
-} from "react-router-dom"
-import { AuthProvider, AuthStatus, RequireAuth, RequireAdmin } from "./Auth"
-import LoginForm from "./components/LoginForm"
+} from 'react-router-dom'
+import { AuthProvider, AuthStatus, RequireAuth, RequireAdmin } from './Auth'
+import LoginForm from './components/LoginForm'
 
 
 export default function App() {

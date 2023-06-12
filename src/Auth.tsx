@@ -7,10 +7,13 @@ import {
 import Cookies from "js-cookie"
 import { API_URL, CLIENT_TOKEN_NAME } from "./config"
 import axios from "axios"
+import type { RootState } from "./store"
+import { useSelector } from "react-redux"
+import { signOut } from "./features/authSlice"
+
 
 interface AuthContextType {
   user: any
-  signin: (user: string, callback: VoidFunction) => void
   signout: (callback: VoidFunction) => void
 }
 
@@ -47,6 +50,7 @@ function AuthStatus() {
   let auth = useAuth()
   let navigate = useNavigate()
   const authToken = Cookies.get(CLIENT_TOKEN_NAME)
+  const authState = useSelector((state: RootState) => state.auth)
 
   if (!authToken) {
     return <p>You are not logged in.</p>
@@ -54,7 +58,8 @@ function AuthStatus() {
 
   return (
     <p>
-      Welcome {auth.user}!{" "}
+      Welcome {authState.email}!{" "}
+
       <button
         onClick={() => {
           auth.signout(() => navigate("/"));
@@ -120,6 +125,7 @@ const authProvider = {
   },
   signout(callback: VoidFunction) {
     authProvider.isAuthenticated = false
+    signOut()
     setTimeout(callback, 100)
   },
 };

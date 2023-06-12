@@ -1,20 +1,21 @@
-import React from "react"
-import { useForm } from "react-hook-form"
+import React, { useEffect, useState } from 'react'
+import { useForm } from 'react-hook-form'
 import {
   useNavigate,
   useLocation
-} from "react-router-dom"
-import Cookies from "js-cookie"
-import { API_URL, CLIENT_TOKEN_NAME } from "../config"
-import { useAuth } from "../Auth"
+} from 'react-router-dom'
+import type { RootState } from '../store'
+import { useAppDispatch } from '../store'
+import { useSelector } from 'react-redux'
+import { loginUser } from '../features/authSlice'
 
 
 export default function LoginForm() {
-  let navigate = useNavigate();
-  let location = useLocation();
-  let auth = useAuth();
-
-  let from = "/";
+  const navigate = useNavigate()
+  const location = useLocation()
+  const authState = useSelector((state: RootState) => state.auth)
+  const [loginAttempt, setLoginAttempt] = useState<boolean>(false)
+  const dispatch = useAppDispatch()
 
   const {
     register,
@@ -22,46 +23,33 @@ export default function LoginForm() {
     formState: { errors },
   } = useForm()
 
+
+  useEffect(() => {
+    if (loginAttempt) {
+      navigate(location.state && location.state.from.pathname ? location.state.from.pathname : "/", { replace: true })
+    }
+  }, [loginAttempt])
+
   const postForm = async (data: any) => {
-    const JSONdata = JSON.stringify({ user: data })
-    const endpoint = `${API_URL}/login`
-    const options = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSONdata,
-    }
-
-    const response = await fetch(endpoint, options)
-    const result = await response.json()
-    const authHeader = response.headers.get('Authorization') as string
-
-    if (authHeader.startsWith("Bearer ")) {
-      const accessToken = authHeader.substring(7, authHeader.length);
-      Cookies.set(CLIENT_TOKEN_NAME, accessToken, { secure: true })
-
-      auth.signin(data.email, () => {
-        // Send them back to the page they tried to visit when they were
-        // redirected to the login page. Use { replace: true } so we don't create
-        // another entry in the history stack for the login page.  This means that
-        // when they get to the protected page and click the back button, they
-        // won't end up back on the login page, which is also really nice for the
-        // user experience.
-        navigate(from, { replace: true });
-      });
-    } else {
-      console.log("error, no token found")
-    }
+    dispatch(loginUser(
+      {
+        user: {
+          email: data.email,
+          password: data.password
+        }
+      }
+    )).then(() => {
+      setLoginAttempt(true)
+    })
   }
 
   return (
     <form onSubmit={handleSubmit((data) => postForm(data))}>
-      <input {...register('email', { required: true })} value="test@localhost.com" />
+      <input {...register('email', { required: true })} value='test@localhost.com' />
       {errors.email && <p>Please enter your email.</p>}
-      <input type="password" {...register('password')} />
+      <input type='password' {...register('password')} value="password" />
       {errors.password && <p>Please enter your password.</p>}
-      <input type="submit" />
+      <input type='submit' />
     </form>
   )
 }

@@ -4,16 +4,13 @@ import {
   useNavigate,
   useLocation
 } from 'react-router-dom'
-import type { RootState } from '../store'
 import { useAppDispatch } from '../store'
-import { useSelector } from 'react-redux'
 import { loginUser } from '../features/authSlice'
 
 
 export default function LoginForm() {
   const navigate = useNavigate()
   const location = useLocation()
-  const authState = useSelector((state: RootState) => state.auth)
   const [loginAttempt, setLoginAttempt] = useState<boolean>(false)
   const dispatch = useAppDispatch()
 
@@ -47,7 +44,7 @@ export default function LoginForm() {
     <form onSubmit={handleSubmit((data) => postForm(data))}>
       <input {...register('email', { required: true })} value='test@localhost.com' />
       {errors.email && <p>Please enter your email.</p>}
-      <input type='password' {...register('password')} value="password" />
+      <input type='password' {...register('password')} />
       {errors.password && <p>Please enter your password.</p>}
       <input type='submit' />
     </form>

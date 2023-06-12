@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import { createAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 import { API_URL, CLIENT_TOKEN_NAME } from '../config'
 import axios, { AxiosRequestHeaders } from 'axios'
@@ -40,6 +40,17 @@ export const loginUser = createAsyncThunk(
     }
   }
 )
+
+export const logoutUser = createAction(
+  'user/logout',
+  (callback: void) => {
+    Cookies.remove(CLIENT_TOKEN_NAME)
+    signOut()
+
+    return {
+      payload: {}
+    }
+  })
 
 export const authSlice = createSlice({
   name: 'auth',

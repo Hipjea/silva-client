@@ -1,43 +1,20 @@
 import * as React from "react"
-import {
-  useNavigate,
-  useLocation,
-  Navigate
-} from "react-router-dom"
+import { useNavigate, useLocation, Navigate } from "react-router-dom"
 import Cookies from "js-cookie"
 import { API_URL, CLIENT_TOKEN_NAME } from "./config"
 import axios from "axios"
 import type { RootState } from "./store"
+import type { AuthContextType } from "./types"
 import { useSelector } from "react-redux"
-import { signOut } from "./features/authSlice"
+import { logoutUser } from "./features/authSlice"
 
 
-interface AuthContextType {
-  user: any
-  signout: (callback: VoidFunction) => void
-}
-
-let AuthContext = React.createContext<AuthContextType>(null!);
+let AuthContext = React.createContext<AuthContextType>(null!)
 
 function AuthProvider({ children }: { children: React.ReactNode }) {
-  let [user, setUser] = React.useState<any>(null)
+  const [user, setUser] = React.useState<any>(null)
 
-  let signin = (email: string, callback: VoidFunction) => {
-    return authProvider.signin(() => {
-      setUser(email)
-      callback()
-    });
-  };
-
-  let signout = (callback: VoidFunction) => {
-    return authProvider.signout(() => {
-      Cookies.remove(CLIENT_TOKEN_NAME)
-      setUser(null)
-      callback()
-    });
-  };
-
-  let value = { user, signin, signout }
+  let value = { user }
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
 }
@@ -46,9 +23,8 @@ function useAuth() {
   return React.useContext(AuthContext)
 }
 
-function AuthStatus() {
-  let auth = useAuth()
-  let navigate = useNavigate()
+const AuthStatus = () => {
+  const navigate = useNavigate()
   const authToken = Cookies.get(CLIENT_TOKEN_NAME)
   const authState = useSelector((state: RootState) => state.auth)
 
@@ -59,16 +35,15 @@ function AuthStatus() {
   return (
     <p>
       Welcome {authState.email}!{" "}
-
       <button
         onClick={() => {
-          auth.signout(() => navigate("/"));
+          logoutUser(navigate("/"))
         }}
       >
         Sign out
       </button>
     </p>
-  );
+  )
 }
 
 function RequireAuth({ children }: { children: JSX.Element }) {
@@ -105,11 +80,8 @@ function RequireAdmin({ children }: { children: JSX.Element }) {
     }
   }
 
-  let status = false
   axios.get(endpoint, config)
-    .then(function (response) {
-      status = true
-    })
+    .then()
     .catch(function (_) {
       window.location.replace('/')
     })
@@ -125,9 +97,8 @@ const authProvider = {
   },
   signout(callback: VoidFunction) {
     authProvider.isAuthenticated = false
-    signOut()
     setTimeout(callback, 100)
   },
-};
+}
 
-export { authProvider, useAuth, AuthProvider, AuthStatus, RequireAuth, RequireAdmin }
+export { useAuth, AuthProvider, AuthStatus, RequireAuth, RequireAdmin }

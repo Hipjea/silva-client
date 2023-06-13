@@ -13,3 +13,14 @@ export interface Scenario {
   created_at: string
   updated_at: string
 }
+
+export interface AuthContextType {
+  user: User
+}
+
+export interface User {
+  user: {
+    email: string
+    password: string
+  }
+}

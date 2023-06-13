@@ -1,17 +1,19 @@
-import * as React from "react"
+import * as React from 'react'
 import {
   Routes,
   Route,
   Link,
   Outlet,
 } from "react-router-dom"
-import { AuthProvider, AuthStatus, RequireAuth, RequireAdmin } from "./Auth"
-import LoginForm from "./components/LoginForm"
+import { AuthProvider, RequireAuth, RequireAdmin } from './components/Auth'
+import { AuthStatus } from './components/AuthStatus'
+import { LoginForm } from './components/LoginForm'
 import Scenarii from "./components/scenarii/Scenarii"
 import Scenario from "./components/scenarii/Scenario"
 import { Updated } from "./components/scenarii/EditForm"
 
-export default function App() {
+
+const App = () => {
   return (
     <AuthProvider>
       <h1>Auth Example</h1>
@@ -47,7 +49,7 @@ export default function App() {
   )
 }
 
-function Layout() {
+const Layout = () => {
   return (
     <div>
       <AuthStatus />
@@ -72,20 +74,27 @@ function Layout() {
   )
 }
 
-function LoginPage() {
+const LoginPage = () => {
   return (
     <LoginForm></LoginForm>
   )
 }
 
-function PublicPage() {
+const PublicPage = () => {
   return <h3>Public</h3>
 }
 
-function ProtectedPage() {
-  return <h3>Protected</h3>
+const ProtectedPage = () => {
+  return (
+    <div>
+      <h3>Protected</h3>
+    </div>
+  )
 }
 
-function AdminPage() {
+const AdminPage = () => {
   return <h3>Admin</h3>
 }
+
+
+export { App }

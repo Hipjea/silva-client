@@ -32,6 +32,7 @@ export const loginUser = createAsyncThunk(
         if (authHeader.startsWith('Bearer ')) {
           const accessToken = authHeader.substring(7, authHeader.length)
           Cookies.set(CLIENT_TOKEN_NAME, accessToken, { secure: true })
+          localStorage.setItem("user", data.data.email)
         }
 
         thunkAPI.dispatch(setEmail(data.data.email))
@@ -50,6 +51,7 @@ export const logoutUser = createAsyncThunk(
   'user/logout',
   async (_: () => void, thunkAPI) => {
     Cookies.remove(CLIENT_TOKEN_NAME)
+    localStorage.removeItem("user")
     thunkAPI.dispatch(signOut())
   })
 

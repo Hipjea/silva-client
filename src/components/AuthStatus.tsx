@@ -19,8 +19,8 @@ export const AuthStatus = () => {
 
   return (
     <p>
-      Welcome {authState.email}!{" "}
-
+      Welcome {authState.email || localStorage.getItem("user")}
+      <br />
       <button
         onClick={() => auth.signout(() => navigate("/"))}
       >

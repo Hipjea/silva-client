@@ -4,17 +4,30 @@ import Cookies from "js-cookie"
 import { API_URL, CLIENT_TOKEN_NAME } from "./config"
 import axios from "axios"
 import type { RootState } from "./store"
-import type { AuthContextType } from "./types"
 import { useSelector } from "react-redux"
-import { logoutUser } from "./features/authSlice"
+import { signOut } from "./features/authSlice"
 
+
+interface AuthContextType {
+  user: any
+  signout: (callback: VoidFunction) => void
+}
 
 let AuthContext = React.createContext<AuthContextType>(null!)
 
 function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = React.useState<any>(null)
 
-  let value = { user }
+  let signout = (callback: VoidFunction) => {
+    return authProvider.signout(() => {
+      Cookies.remove(CLIENT_TOKEN_NAME)
+      setUser(null)
+      signOut()
+      callback()
+    });
+  };
+
+  let value = { user, signout }
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
 }
@@ -24,6 +37,7 @@ function useAuth() {
 }
 
 const AuthStatus = () => {
+  const auth = useAuth()
   const navigate = useNavigate()
   const authToken = Cookies.get(CLIENT_TOKEN_NAME)
   const authState = useSelector((state: RootState) => state.auth)
@@ -35,10 +49,9 @@ const AuthStatus = () => {
   return (
     <p>
       Welcome {authState.email}!{" "}
+
       <button
-        onClick={() => {
-          logoutUser(navigate("/"))
-        }}
+        onClick={() => auth.signout(() => navigate("/"))}
       >
         Sign out
       </button>
@@ -87,6 +100,18 @@ function RequireAdmin({ children }: { children: JSX.Element }) {
     })
 
   return children
+}
+
+const authProvider = {
+  isAuthenticated: false,
+  signin(callback: VoidFunction) {
+    authProvider.isAuthenticated = true
+    setTimeout(callback, 100)
+  },
+  signout(callback: VoidFunction) {
+    authProvider.isAuthenticated = false
+    setTimeout(callback, 100)
+  },
 }
 
 export { useAuth, AuthProvider, AuthStatus, RequireAuth, RequireAdmin }

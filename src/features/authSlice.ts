@@ -1,7 +1,7 @@
 import { createAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 import { API_URL, CLIENT_TOKEN_NAME } from '../config'
-import axios, { AxiosRequestHeaders } from 'axios'
+import axios, { AxiosResponse, AxiosResponseHeaders } from 'axios'
 import type { User } from '../types'
 import Cookies from 'js-cookie'
 
@@ -16,24 +16,25 @@ const initialState: AuthState = {
   email: null
 }
 
+/**
+ * User login action
+ */
 export const loginUser = createAsyncThunk(
   'user/login',
   async (data: User, thunkAPI) => {
     try {
-      await axios.post(`${API_URL}/login`, data).then(
-        res => {
-          if (res && res.headers) {
-            const headers = res.headers as AxiosRequestHeaders
-            const authHeader = headers.get('Authorization') as string
-            if (authHeader.startsWith('Bearer ')) {
-              const accessToken = authHeader.substring(7, authHeader.length)
-              Cookies.set(CLIENT_TOKEN_NAME, accessToken, { secure: true })
-            }
-          }
+      return await axios.post(`${API_URL}/login`, data).then((res: AxiosResponse) => {
+        const headers = res.headers as AxiosResponseHeaders
+        const data = res.data as AxiosResponse
+        const authHeader = headers.get('Authorization') as string
 
-          thunkAPI.dispatch(setEmail(res.data.data.email))
+        if (authHeader.startsWith('Bearer ')) {
+          const accessToken = authHeader.substring(7, authHeader.length)
+          Cookies.set(CLIENT_TOKEN_NAME, accessToken, { secure: true })
         }
-      )
+
+        thunkAPI.dispatch(setEmail(data.data.email))
+      })
     } catch (error) {
       console.log(error)
       return {}
@@ -41,17 +42,22 @@ export const loginUser = createAsyncThunk(
   }
 )
 
+/**
+ * User logout action
+ */
 export const logoutUser = createAction(
   'user/logout',
   (callback: void) => {
     Cookies.remove(CLIENT_TOKEN_NAME)
-    signOut()
 
     return {
-      payload: {}
+      payload: callback
     }
   })
 
+/**
+ * Auth slice containing the reducers
+ */
 export const authSlice = createSlice({
   name: 'auth',
   initialState,
@@ -69,7 +75,7 @@ export const authSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(loginUser.fulfilled, (state, { payload }) => {
+    builder.addCase(loginUser.fulfilled, (state, action) => {
       state.isAuthenticated = true
     })
   }

@@ -44,7 +44,7 @@ export default function LoginForm() {
     <form onSubmit={handleSubmit((data) => postForm(data))}>
       <input {...register('email', { required: true })} value='test@localhost.com' />
       {errors.email && <p>Please enter your email.</p>}
-      <input type='password' {...register('password')} />
+      <input type='password' {...register('password')} value="password" />
       {errors.password && <p>Please enter your password.</p>}
       <input type='submit' />
     </form>

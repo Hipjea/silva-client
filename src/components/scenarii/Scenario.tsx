@@ -5,14 +5,22 @@ import axios from "axios"
 import type { AxiosResponse } from "axios"
 import type { Scenario } from "../../types"
 import { Link } from "react-router-dom"
+import type { RootState } from '../../store'
+import { useSelector } from 'react-redux'
 
 
 export default function Scenario() {
   const { id } = useParams()
   const [scenario, setScenario] = useState<Scenario>()
-  const config = `${API_URL}/api/v1/scenarii/${id}`
+  /*
+  const scenario = useSelector((state: RootState) => {
+    console.log(state.scenarii.scenarii)
+    state.scenarii.scenarii.find((scenario: IScenario) => scenario.id === parseInt(id!))
+  })
+  */
 
   useEffect(() => {
+    const config = `${API_URL}/api/v1/scenarii/${id}`
     axios.get(config).then((res: AxiosResponse) => setScenario(res.data))
   }, [])
 

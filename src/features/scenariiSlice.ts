@@ -1,4 +1,4 @@
-import { createAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import { createAction, createAsyncThunk, createSlice, current } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 import type { IScenario } from '../types'
 
@@ -23,7 +23,8 @@ export const scenariiSlice = createSlice({
         },
         update: (state, action) => {
             const { id, name, author } = action.payload
-            let existingScenario = state.scenarii.find(scenario => scenario.id === id)
+            const existingScenario = state.scenarii.find(scenario => scenario.id == id)
+
             if (existingScenario) {
                 existingScenario.attributes.name = name
                 existingScenario.attributes.author = author

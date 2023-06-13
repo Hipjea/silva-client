@@ -13,9 +13,11 @@ export const store = configureStore({
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
 })
 
+/*
 store.subscribe(() => {
   localStorage.setItem('silva_state', JSON.stringify(store.getState()))
 })
+*/
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
 export type RootState = ReturnType<typeof store.getState>

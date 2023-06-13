@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import { API_URL } from "../../config"
 import axios from "axios"
 import type { Scenario } from "../../types"
@@ -13,15 +13,22 @@ export const Updated = () => {
   let navigate = useNavigate()
   const dispatch = useDispatch()
   const { scenario } = location.state
+  const [updated, setUpdated] = useState<boolean>(false) // Used to redirect when the object is updated
   const { register, handleSubmit, formState: { errors } } = useForm<Scenario>()
   const onSubmit = (data: Scenario) => updateForm(data)
 
   const updateForm = async (data: any) => {
     const url = `${API_URL}/api/v1/scenarii/${scenario.id}`
-    axios.patch(url, data)
-    dispatch(update({id: scenario.id, ...data}))
-    navigate(`/scenarii/${scenario.id}`, { replace: true })
+    axios.patch(url, data).then((response) => {
+      dispatch(update({id: scenario.id, ...data}))
+      setUpdated(true)
+    })
   }
+
+  useEffect(() => {
+    if (updated)
+      navigate(`/scenarii/${scenario.id}`, { replace: true })
+  }, [updated])
 
   return (
     scenario

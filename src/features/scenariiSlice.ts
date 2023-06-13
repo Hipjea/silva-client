@@ -22,9 +22,11 @@ export const scenariiSlice = createSlice({
             state.scenarii = action.payload
         },
         update: (state, action) => {
-            return {
-                ...state,
-                scenarii: state.scenarii.map((s: IScenario) => s.id == action.payload.id ? action.payload : s)
+            const { id, name, author } = action.payload
+            let existingScenario = state.scenarii.find(scenario => scenario.id === id)
+            if (existingScenario) {
+                existingScenario.attributes.name = name
+                existingScenario.attributes.author = author
             }
         }
     }

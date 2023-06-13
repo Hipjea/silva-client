@@ -5,7 +5,8 @@ import {
   Link,
   Outlet,
 } from 'react-router-dom'
-import { AuthProvider, AuthStatus, RequireAuth, RequireAdmin } from './Auth'
+import { AuthProvider, RequireAuth, RequireAdmin } from './components/Auth'
+import { AuthStatus } from './components/AuthStatus'
 import LoginForm from './components/LoginForm'
 
 

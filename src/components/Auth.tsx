@@ -1,12 +1,12 @@
 import * as React from "react"
 import { useNavigate, useLocation, Navigate } from "react-router-dom"
 import Cookies from "js-cookie"
-import { API_URL, CLIENT_TOKEN_NAME } from "./config"
+import { API_URL, CLIENT_TOKEN_NAME } from "../config"
 import axios from "axios"
-import type { RootState } from "./store"
+import type { RootState } from "../store"
 import { useSelector, useDispatch } from "react-redux"
 import { ThunkDispatch } from "@reduxjs/toolkit";
-import { logoutUser } from "./features/authSlice"
+import { logoutUser, bounceUser } from "../features/authSlice"
 
 
 interface AuthContextType {
@@ -34,29 +34,6 @@ function useAuth() {
   return React.useContext(AuthContext)
 }
 
-const AuthStatus = () => {
-  const auth = useAuth()
-  const navigate = useNavigate()
-  const authToken = Cookies.get(CLIENT_TOKEN_NAME)
-  const authState = useSelector((state: RootState) => state.auth)
-
-  if (!authToken) {
-    return <p>You are not logged in.</p>
-  }
-
-  return (
-    <p>
-      Welcome {authState.email}!{" "}
-
-      <button
-        onClick={() => auth.signout(() => navigate("/"))}
-      >
-        Sign out
-      </button>
-    </p>
-  )
-}
-
 function RequireAuth({ children }: { children: JSX.Element }) {
   let location = useLocation()
   const authToken = Cookies.get(CLIENT_TOKEN_NAME)
@@ -75,6 +52,8 @@ function RequireAuth({ children }: { children: JSX.Element }) {
 function RequireAdmin({ children }: { children: JSX.Element }) {
   let location = useLocation()
   const authToken = Cookies.get(CLIENT_TOKEN_NAME)
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
 
   if (!authToken) {
     // Redirect them to the /login page, but save the current location they were
@@ -94,10 +73,10 @@ function RequireAdmin({ children }: { children: JSX.Element }) {
   axios.get(endpoint, config)
     .then()
     .catch(function (_) {
-      window.location.replace('/')
+      dispatch(bounceUser(() => navigate("/")))
     })
 
   return children
 }
 
-export { useAuth, AuthProvider, AuthStatus, RequireAuth, RequireAdmin }
+export { useAuth, AuthProvider, RequireAuth, RequireAdmin }

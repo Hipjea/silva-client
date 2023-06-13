@@ -54,6 +54,20 @@ export const logoutUser = createAsyncThunk(
   })
 
 /**
+ * Bounce the user to the callback location
+ */
+export const bounceUser = createAction(
+  'user/redirect',
+  (callback: () => void) => {
+    callback()
+
+    return {
+      payload: null
+    }
+  }
+)
+
+/**
  * Auth slice containing the reducers
  */
 export const authSlice = createSlice({

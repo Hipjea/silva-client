@@ -5,7 +5,7 @@ import { useAppDispatch } from '../store'
 import { loginUser } from '../features/authSlice'
 
 
-export default function LoginForm() {
+export const LoginForm = () => {
   const navigate = useNavigate()
   const location = useLocation()
   const [loginAttempt, setLoginAttempt] = useState<boolean>(false)

@@ -7,10 +7,10 @@ import {
 } from 'react-router-dom'
 import { AuthProvider, RequireAuth, RequireAdmin } from './components/Auth'
 import { AuthStatus } from './components/AuthStatus'
-import LoginForm from './components/LoginForm'
+import { LoginForm } from './components/LoginForm'
 
 
-export default function App() {
+const App = () => {
   return (
     <AuthProvider>
       <h1>Auth Example</h1>
@@ -41,7 +41,7 @@ export default function App() {
   )
 }
 
-function Layout() {
+const Layout = () => {
   return (
     <div>
       <AuthStatus />
@@ -63,20 +63,27 @@ function Layout() {
   )
 }
 
-function LoginPage() {
+const LoginPage = () => {
   return (
     <LoginForm></LoginForm>
   )
 }
 
-function PublicPage() {
+const PublicPage = () => {
   return <h3>Public</h3>
 }
 
-function ProtectedPage() {
-  return <h3>Protected</h3>
+const ProtectedPage = () => {
+  return (
+    <div>
+      <h3>Protected</h3>
+    </div>
+  )
 }
 
-function AdminPage() {
+const AdminPage = () => {
   return <h3>Admin</h3>
 }
+
+
+export { App }

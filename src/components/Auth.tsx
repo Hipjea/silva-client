@@ -16,7 +16,7 @@ interface AuthContextType {
 
 let AuthContext = React.createContext<AuthContextType>(null!)
 
-function AuthProvider({ children }: { children: React.ReactNode }) {
+const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const user = useSelector((state: RootState) => state.auth.email)
   const dispatch = useDispatch<ThunkDispatch<any, any, any>>()
 
@@ -30,11 +30,11 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
 }
 
-function useAuth() {
+const useAuth = () => {
   return React.useContext(AuthContext)
 }
 
-function RequireAuth({ children }: { children: JSX.Element }) {
+const RequireAuth = ({ children }: { children: JSX.Element }) => {
   let location = useLocation()
   const authToken = Cookies.get(CLIENT_TOKEN_NAME)
 
@@ -49,7 +49,7 @@ function RequireAuth({ children }: { children: JSX.Element }) {
   return children
 }
 
-function RequireAdmin({ children }: { children: JSX.Element }) {
+const RequireAdmin = ({ children }: { children: JSX.Element }) => {
   let location = useLocation()
   const authToken = Cookies.get(CLIENT_TOKEN_NAME)
   const navigate = useNavigate()

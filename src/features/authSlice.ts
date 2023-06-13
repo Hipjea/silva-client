@@ -1,6 +1,5 @@
 import { createAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import type { PayloadAction, Dispatch } from '@reduxjs/toolkit'
-import { useDispatch } from 'react-redux'
+import type { PayloadAction } from '@reduxjs/toolkit'
 import { API_URL, CLIENT_TOKEN_NAME } from '../config'
 import axios, { AxiosResponse, AxiosResponseHeaders } from 'axios'
 import type { User } from '../types'

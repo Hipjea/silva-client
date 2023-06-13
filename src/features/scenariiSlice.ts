@@ -20,12 +20,18 @@ export const scenariiSlice = createSlice({
     reducers: {
         populate: (state, action: PayloadAction<Array<IScenario>>) => {
             state.scenarii = action.payload
+        },
+        update: (state, action) => {
+            return {
+                ...state,
+                scenarii: state.scenarii.map((s: IScenario) => s.id == action.payload.id ? action.payload : s)
+            }
         }
     }
 })
 
 // Action creators are generated for each case reducer function
-export const { populate } = scenariiSlice.actions
+export const { populate, update } = scenariiSlice.actions
 
 export default scenariiSlice.reducer
   

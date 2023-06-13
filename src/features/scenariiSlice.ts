@@ -1,6 +1,6 @@
-import { createAction, createAsyncThunk, createSlice, current } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice, current } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
-import type { IScenario } from '../types'
+import type { IScenario, Scenario } from '../types'
 
 
 export interface ScenariiState {
@@ -10,6 +10,13 @@ export interface ScenariiState {
 const initialState: ScenariiState = {
     scenarii: []
 }
+
+export const updateScenario = createAsyncThunk(
+    'scenarii/update',
+    async (data: Scenario, thunkAPI) => {
+      thunkAPI.dispatch(update(data))
+    }
+)
 
 /**
  * Scenarii slice containing the reducers

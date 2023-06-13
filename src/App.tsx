@@ -4,10 +4,13 @@ import {
   Route,
   Link,
   Outlet,
-} from 'react-router-dom'
+} from "react-router-dom"
 import { AuthProvider, RequireAuth, RequireAdmin } from './components/Auth'
 import { AuthStatus } from './components/AuthStatus'
 import { LoginForm } from './components/LoginForm'
+import Scenarii from "./components/scenarii/Scenarii"
+import Scenario from "./components/scenarii/Scenario"
+import { Updated } from "./components/scenarii/EditForm"
 
 
 const App = () => {
@@ -19,6 +22,11 @@ const App = () => {
         <Route element={<Layout />}>
           <Route path="/" element={<PublicPage />} />
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/scenarii">
+            <Route index={true} element={<Scenarii />} />
+            <Route path=":id" element={<Scenario />} />
+            <Route path=":id/edit" element={<Updated />} />
+          </Route>
           <Route
             path="/protected"
             element={
@@ -55,6 +63,9 @@ const Layout = () => {
         </li>
         <li>
           <Link to="/admin">Admin Page</Link>
+        </li>
+        <li>
+          <Link to="/scenarii">Scenarii Page</Link>
         </li>
       </ul>
 

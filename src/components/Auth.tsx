@@ -1,12 +1,12 @@
-import * as React from "react"
-import { useNavigate, useLocation, Navigate } from "react-router-dom"
-import Cookies from "js-cookie"
-import { API_URL, CLIENT_TOKEN_NAME } from "../config"
-import axios from "axios"
-import type { RootState } from "../store"
-import { useSelector, useDispatch } from "react-redux"
-import { ThunkDispatch } from "@reduxjs/toolkit";
-import { logoutUser, bounceUser } from "../features/authSlice"
+import * as React from 'react'
+import { useNavigate, useLocation, Navigate } from 'react-router-dom'
+import Cookies from 'js-cookie'
+import { API_URL, CLIENT_TOKEN_NAME } from '../config'
+import axios from 'axios'
+import type { RootState } from '../store'
+import { useSelector, useDispatch } from 'react-redux'
+import { ThunkDispatch } from '@reduxjs/toolkit';
+import { logoutUser, bounceUser } from '../features/authSlice'
 
 
 interface AuthContextType {
@@ -16,7 +16,7 @@ interface AuthContextType {
 
 let AuthContext = React.createContext<AuthContextType>(null!)
 
-function AuthProvider({ children }: { children: React.ReactNode }) {
+const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const user = useSelector((state: RootState) => state.auth.email)
   const dispatch = useDispatch<ThunkDispatch<any, any, any>>()
 
@@ -30,11 +30,11 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
 }
 
-function useAuth() {
+const useAuth = () => {
   return React.useContext(AuthContext)
 }
 
-function RequireAuth({ children }: { children: JSX.Element }) {
+const RequireAuth = ({ children }: { children: JSX.Element }) => {
   let location = useLocation()
   const authToken = Cookies.get(CLIENT_TOKEN_NAME)
 
@@ -49,7 +49,7 @@ function RequireAuth({ children }: { children: JSX.Element }) {
   return children
 }
 
-function RequireAdmin({ children }: { children: JSX.Element }) {
+const RequireAdmin = ({ children }: { children: JSX.Element }) => {
   let location = useLocation()
   const authToken = Cookies.get(CLIENT_TOKEN_NAME)
   const navigate = useNavigate()

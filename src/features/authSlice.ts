@@ -1,5 +1,6 @@
 import { createAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import type { PayloadAction } from '@reduxjs/toolkit'
+import type { PayloadAction, Dispatch } from '@reduxjs/toolkit'
+import { useDispatch } from 'react-redux'
 import { API_URL, CLIENT_TOKEN_NAME } from '../config'
 import axios, { AxiosResponse, AxiosResponseHeaders } from 'axios'
 import type { User } from '../types'
@@ -45,14 +46,11 @@ export const loginUser = createAsyncThunk(
 /**
  * User logout action
  */
-export const logoutUser = createAction(
+export const logoutUser = createAsyncThunk(
   'user/logout',
-  (callback: void) => {
+  async (_: () => void, thunkAPI) => {
     Cookies.remove(CLIENT_TOKEN_NAME)
-
-    return {
-      payload: callback
-    }
+    thunkAPI.dispatch(signOut())
   })
 
 /**

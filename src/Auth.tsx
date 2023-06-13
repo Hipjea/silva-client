@@ -4,8 +4,9 @@ import Cookies from "js-cookie"
 import { API_URL, CLIENT_TOKEN_NAME } from "./config"
 import axios from "axios"
 import type { RootState } from "./store"
-import { useSelector } from "react-redux"
-import { signOut } from "./features/authSlice"
+import { useSelector, useDispatch } from "react-redux"
+import { ThunkDispatch } from "@reduxjs/toolkit";
+import { logoutUser } from "./features/authSlice"
 
 
 interface AuthContextType {
@@ -16,16 +17,13 @@ interface AuthContextType {
 let AuthContext = React.createContext<AuthContextType>(null!)
 
 function AuthProvider({ children }: { children: React.ReactNode }) {
-  const [user, setUser] = React.useState<any>(null)
+  const user = useSelector((state: RootState) => state.auth.email)
+  const dispatch = useDispatch<ThunkDispatch<any, any, any>>()
 
   let signout = (callback: VoidFunction) => {
-    return authProvider.signout(() => {
-      Cookies.remove(CLIENT_TOKEN_NAME)
-      setUser(null)
-      signOut()
-      callback()
-    });
-  };
+    dispatch(logoutUser(() => callback)) // Dispatch the logoutUser action
+    callback() // Redirect to the navigation path
+  }
 
   let value = { user, signout }
 
@@ -100,18 +98,6 @@ function RequireAdmin({ children }: { children: JSX.Element }) {
     })
 
   return children
-}
-
-const authProvider = {
-  isAuthenticated: false,
-  signin(callback: VoidFunction) {
-    authProvider.isAuthenticated = true
-    setTimeout(callback, 100)
-  },
-  signout(callback: VoidFunction) {
-    authProvider.isAuthenticated = false
-    setTimeout(callback, 100)
-  },
 }
 
 export { useAuth, AuthProvider, AuthStatus, RequireAuth, RequireAdmin }

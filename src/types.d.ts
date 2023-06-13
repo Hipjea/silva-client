@@ -1,5 +1,6 @@
 export interface Scenarii {
   id: number
+  type: string
   attributes: Scenario
 }
 
@@ -12,6 +13,19 @@ export interface Scenario {
   description: string
   created_at: string
   updated_at: string
+}
+
+export interface IScenario {
+  id: number
+  attributes: {
+    author: string
+    name: string
+    level: number
+    subject: string
+    description: string
+    created_at: string
+    updated_at: string
+  }
 }
 
 export interface AuthContextType {

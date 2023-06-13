@@ -1,19 +1,22 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect } from "react"
 import { API_URL } from "../../config"
 import axios from "axios"
 import { Link } from "react-router-dom"
-import type { Scenarii } from "../../types"
+import type { IScenario } from "../../types"
+import { RootState } from "../../store"
+import { useDispatch, useSelector } from 'react-redux'
+import { populate } from '../../features/scenariiSlice'
 
 
 export default function Scenarii() {
-
   const config = `${API_URL}/api/v1/scenarii`
-  const [scenarii, setScenarii] = useState<Array<Scenarii>>([])
+  const scenarii = useSelector<RootState, Array<IScenario>>(state => state.scenarii.scenarii)
+  const dispatch = useDispatch()
 
   useEffect(() => {
     axios.get(config)
       .then((response) => {
-        setScenarii(response.data)
+        dispatch(populate(response.data))
       })
   }, [])
 

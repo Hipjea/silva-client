@@ -1,12 +1,14 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { useDispatch } from 'react-redux'
 import authReducer from './features/authSlice'
+import scenariiSlice from './features/scenariiSlice'
 import logger from 'redux-logger'
 
 
 export const store = configureStore({
   reducer: {
     auth: authReducer,
+    scenarii: scenariiSlice
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
 })

@@ -1,18 +1,14 @@
 import React, { useEffect, useState } from "react"
-import { API_URL } from "../config"
+import { API_URL } from "../../config"
 import axios from "axios"
+import { Link } from "react-router-dom"
+import type { Scenarii } from "../../types"
 
-interface Scenario {
-  id: number
-  attributes: {
-    author: string
-    name: string
-  }
-}
 
 export default function Scenarii() {
+
   const config = `${API_URL}/api/v1/scenarii`
-  const [scenarii, setScenarii] = useState<Array<Scenario>>([])
+  const [scenarii, setScenarii] = useState<Array<Scenarii>>([])
 
   useEffect(() => {
     axios.get(config)
@@ -21,12 +17,9 @@ export default function Scenarii() {
       })
   }, [])
 
-  console.log(scenarii)
-
   return (
     <>
-      { scenarii.length &&
-        scenarii.map(scenario => {
+      { scenarii.map(scenario => {
           { return scenario
             ? (
                 <div className="scenario" key={scenario.id}>
@@ -36,6 +29,7 @@ export default function Scenarii() {
                     <div>
                     {scenario.attributes.author}
                   </div>
+                  <Link to={`${scenario.id}`}>Scenario Page</Link>
                 </div>
               )
             : null

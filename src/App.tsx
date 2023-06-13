@@ -7,8 +7,9 @@ import {
 } from "react-router-dom"
 import { AuthProvider, AuthStatus, RequireAuth, RequireAdmin } from "./Auth"
 import LoginForm from "./components/LoginForm"
-import Scenarii from "./components/Scenarii"
-
+import Scenarii from "./components/scenarii/Scenarii"
+import Scenario from "./components/scenarii/Scenario"
+import { Updated } from "./components/scenarii/EditForm"
 
 export default function App() {
   return (
@@ -19,7 +20,11 @@ export default function App() {
         <Route element={<Layout />}>
           <Route path="/" element={<PublicPage />} />
           <Route path="/login" element={<LoginPage />} />
-          <Route path="/scenarii" element={<ScenariiPage />} />
+          <Route path="/scenarii">
+            <Route index={true} element={<Scenarii />} />
+            <Route path=":id" element={<Scenario />} />
+            <Route path=":id/edit" element={<Updated />} />
+          </Route>
           <Route
             path="/protected"
             element={
@@ -83,8 +88,4 @@ function ProtectedPage() {
 
 function AdminPage() {
   return <h3>Admin</h3>
-}
-
-function ScenariiPage() {
-  return <Scenarii></Scenarii>
 }

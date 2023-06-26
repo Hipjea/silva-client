@@ -6,7 +6,7 @@ import axios from 'axios'
 import type { RootState } from '../store'
 import { useSelector, useDispatch } from 'react-redux'
 import { ThunkDispatch } from '@reduxjs/toolkit';
-import { logoutUser, bounceUser } from '../features/authSlice'
+import { logoutUser, bounceUser } from '../actions/authActions'
 
 
 interface AuthContextType {

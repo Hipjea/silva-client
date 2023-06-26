@@ -1,20 +1,9 @@
-import { createAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import type { PayloadAction } from '@reduxjs/toolkit'
+import { createAction, createAsyncThunk } from '@reduxjs/toolkit'
 import { API_URL, CLIENT_TOKEN_NAME } from '../config'
 import axios, { AxiosResponse, AxiosResponseHeaders } from 'axios'
 import type { User } from '../types'
 import Cookies from 'js-cookie'
-
-
-export interface AuthState {
-  isAuthenticated: boolean
-  email: null | string
-}
-
-const initialState: AuthState = {
-  isAuthenticated: false,
-  email: null
-}
+import { signOut, setEmail } from '../slices/authSlice'
 
 /**
  * User login action
@@ -68,33 +57,3 @@ export const bounceUser = createAction(
   }
 )
 
-/**
- * Auth slice containing the reducers
- */
-export const authSlice = createSlice({
-  name: 'auth',
-  initialState,
-  reducers: {
-    signIn: (state, action: PayloadAction<string>) => {
-      state.isAuthenticated = true
-      state.email = action.payload
-    },
-    signOut: (state) => {
-      state.isAuthenticated = false
-      state.email = null
-    },
-    setEmail: (state, action: PayloadAction<string>) => {
-      state.email = action.payload
-    },
-  },
-  extraReducers: (builder) => {
-    builder.addCase(loginUser.fulfilled, (state, action) => {
-      state.isAuthenticated = true
-    })
-  }
-})
-
-// Action creators are generated for each case reducer function
-export const { signIn, signOut, setEmail } = authSlice.actions
-
-export default authSlice.reducer

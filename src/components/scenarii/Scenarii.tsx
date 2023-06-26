@@ -5,7 +5,7 @@ import { Link } from "react-router-dom"
 import type { IScenario } from "../../types"
 import { RootState } from "../../store"
 import { useDispatch, useSelector } from 'react-redux'
-import { populate } from '../../features/scenariiSlice'
+import { populate } from '../../slices/scenariiSlice'
 
 
 export default function Scenarii() {

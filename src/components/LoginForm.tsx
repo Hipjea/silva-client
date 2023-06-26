@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useNavigate, useLocation } from 'react-router-dom'
-import { useAppDispatch } from '../store'
-import { loginUser } from '../features/authSlice'
+import { useAppDispatch } from '../hooks/redux-hooks'
+import { loginUser } from '../actions/authActions'
 
 
 export const LoginForm = () => {
@@ -41,7 +41,7 @@ export const LoginForm = () => {
     <form onSubmit={handleSubmit((data) => postForm(data))}>
       <input {...register('email', { required: true })} value='test@localhost.com' />
       {errors.email && <p>Please enter your email.</p>}
-      <input type='password' {...register('password')} value="password" />
+      <input type='password' {...register('password')} />
       {errors.password && <p>Please enter your password.</p>}
       <input type='submit' />
     </form>

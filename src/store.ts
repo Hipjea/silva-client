@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { useDispatch } from 'react-redux'
-import authReducer from './features/authSlice'
-import scenariiSlice from './features/scenariiSlice'
+import authReducer from './slices/authSlice'
+import scenariiSlice from './slices/scenariiSlice'
 import logger from 'redux-logger'
 
 
@@ -23,5 +23,3 @@ store.subscribe(() => {
 export type RootState = ReturnType<typeof store.getState>
 // Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
 export type AppDispatch = typeof store.dispatch
-// Export a hook that can be reused to resolve types
-export const useAppDispatch: () => AppDispatch = useDispatch

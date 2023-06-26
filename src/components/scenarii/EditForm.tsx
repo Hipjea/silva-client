@@ -3,9 +3,9 @@ import { API_URL } from "../../config"
 import axios from "axios"
 import type { Scenario } from "../../types"
 import { useLocation, useNavigate } from "react-router-dom"
-import { useAppDispatch } from '../../store'
+import { useAppDispatch } from '../../hooks/redux-hooks'
 import { useForm } from "react-hook-form"
-import { updateScenario } from "../../features/scenariiSlice"
+import { updateScenario } from "../../actions/scenariiActions"
 
 
 export const Updated = () => {

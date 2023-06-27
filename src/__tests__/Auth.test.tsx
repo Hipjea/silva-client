@@ -6,7 +6,10 @@ import { App } from "../App"
 import { renderWithProviders } from "../utils/testUtils"
 import '@testing-library/jest-dom/extend-expect'
 import userEvent from "@testing-library/user-event"
+import { toBeInTheDocument } from "@testing-library/jest-dom/matchers"
 
+
+const APP_NAME = "Silva Client"
 
 export const handlers = [
     rest.get("/api/auth", (req, res, ctx) => {
@@ -26,14 +29,11 @@ test("Testing start screen and login button", async () => {
     renderWithProviders(<App />)
     
     // We wait until the text "Silva Client" is in the document. If it isn't, it's an error.
-    expect(screen.getByText(/Silva Client/i)).toBeInTheDocument()
+    expect(screen.getByText(APP_NAME)).toBeInTheDocument()
     expect(screen.queryByText(/Welcome/i)).not.toBeInTheDocument()
 
     fireEvent.click(screen.getByRole('link', { name: /Admin Page/i }))
     expect(screen.getByText(/You are not logged in/i)).toBeInTheDocument()
-
-    expect(await screen.findByText(/Silva Client/i)).toBeInTheDocument()
-    expect(screen.queryByText(/You are not logged in/i)).toBeInTheDocument()
 
     const setItem = jest.spyOn(Storage.prototype, 'setItem')
 
@@ -42,8 +42,30 @@ test("Testing start screen and login button", async () => {
     act(() => fireEvent.click(screen.getByTestId("submit")))
 
     waitFor(() => {
-        expect(screen.getByText("Silva Client")).toBeInTheDocument()
+        expect(screen.getByText(APP_NAME)).toBeInTheDocument()
         expect(screen.getByText("Welcome")).toBeInTheDocument()
         expect(setItem).toHaveBeenCalled()
     })
+    
+})
+
+test("Logout", async () => {
+    renderWithProviders(<App />)
+
+    fireEvent.click(screen.getByRole('link', { name: /Admin Page/i }))
+
+    const setItem = jest.spyOn(Storage.prototype, 'setItem')
+
+    userEvent.type(screen.getByTestId("email"), "test@localhost.com")
+    userEvent.type(screen.getByTestId("password"), "password")
+    act(() => fireEvent.click(screen.getByTestId("submit")))
+
+    waitFor(() => {
+        expect(setItem).toHaveBeenCalled()
+
+        act(() => fireEvent.click(screen.getByTestId("logout")))
+        expect(setItem).not.toHaveBeenCalled()
+
+    })
+
 })

@@ -1,6 +1,11 @@
-import React from "react"
+/** @jsx jsx */
 import { nanoid } from "nanoid"
+import { jsx, css } from '@emotion/react'
 
+
+const style = css`
+  color: hotpink;
+`
 
 interface DataProps {
     [key: string]: any
@@ -13,7 +18,7 @@ interface Props {
 
 const TableElement = ({ headers, data }: Props) => {
     return (
-        <table key={nanoid()}>
+        <table key={nanoid()} css={style}>
             <thead key={nanoid()}>
                 <tr key={nanoid()}>
                     { headers.map(header => {

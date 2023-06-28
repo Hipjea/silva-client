@@ -2,11 +2,10 @@ import React from "react"
 import { rest } from "msw"
 import { setupServer } from "msw/node"
 import { fireEvent, screen, act, waitFor } from "@testing-library/react"
-import { App } from "../components/App"
+import App from "../components/App"
 import { renderWithProviders } from "../utils/testUtils"
 import '@testing-library/jest-dom/extend-expect'
 import userEvent from "@testing-library/user-event"
-import { toBeInTheDocument } from "@testing-library/jest-dom/matchers"
 
 
 const APP_NAME = "Silva Client"
@@ -45,7 +44,6 @@ test("Admin - Testing start screen and login button", async () => {
         expect(screen.getByText(/Welcome test@localhost.com/i)).toBeInTheDocument()
         expect(setItem).toHaveBeenCalled()
     })
-
 })
 
 test("Admin - Logout", async () => {
@@ -66,5 +64,4 @@ test("Admin - Logout", async () => {
         expect(setItem).not.toHaveBeenCalled()
 
     })
-
 })

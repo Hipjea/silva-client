@@ -1,4 +1,3 @@
-import * as React from 'react'
 import {
   BrowserRouter,
   Routes,
@@ -6,8 +5,8 @@ import {
   Link,
   Outlet,
 } from "react-router-dom"
-import { AuthProvider, RequireAuth, RequireAdmin } from './components/Auth'
-import { AuthStatus } from './components/AuthStatus'
+import { AuthProvider, RequireAuth, RequireAdmin } from './components/auth/Auth'
+import { AuthStatus } from './components/auth/AuthStatus'
 import { LoginForm } from './components/LoginForm'
 import Scenarii from "./components/scenarii/Scenarii"
 import Scenario from "./components/scenarii/Scenario"

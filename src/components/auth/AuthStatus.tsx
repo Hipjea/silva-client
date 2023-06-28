@@ -1,11 +1,10 @@
-import * as React from 'react'
 import { useNavigate } from 'react-router-dom'
 import Cookies from 'js-cookie'
-import { CLIENT_TOKEN_NAME } from '../config'
-import type { RootState } from '../store'
+import { CLIENT_TOKEN_NAME } from '../../config'
+import type { RootState } from '../../store'
 import { useSelector } from 'react-redux'
 import { useAuth } from './Auth'
-import { ButtonElement } from './ButtonElement'
+import { ButtonElement } from '../ButtonElement'
 
 
 export const AuthStatus = () => {

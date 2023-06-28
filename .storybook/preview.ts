@@ -1,3 +1,5 @@
+/** @jsx jsx */
+import { jsx } from '@emotion/react'
 import type { Preview } from "@storybook/react";
 
 const preview: Preview = {

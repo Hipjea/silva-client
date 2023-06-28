@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@emotion/core": "^11.0.0",
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
     "@reduxjs/toolkit": "^1.9.5",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
@@ -15,7 +18,10 @@
     "axios": "^1.4.0",
     "core-js": "^3.31.0",
     "express": "^4.18.2",
+    "jest-dom": "^4.0.0",
+    "jest-environment-jsdom-sixteen": "^2.0.0",
     "js-cookie": "^3.0.5",
+    "nanoid": "^4.0.2",
     "path": "^0.12.7",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -30,7 +36,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test --transformIgnorePatterns 'node_modules/(?!axios)/' --env=jest-environment-jsdom-sixteen",
     "eject": "react-scripts eject",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
@@ -71,5 +77,6 @@
     "prop-types": "^15.8.1",
     "storybook": "^7.1.0-alpha.40",
     "webpack": "^5.88.0"
+    "msw": "^1.2.2"
   }
 }

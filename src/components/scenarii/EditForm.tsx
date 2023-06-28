@@ -13,7 +13,7 @@ export const Updated = () => {
   let navigate = useNavigate()
   const dispatch = useAppDispatch()
   const { scenario } = location.state
-  const [updated, setUpdated] = useState<boolean>(false) // Used to redirect when the object is updated
+  // const [updated, setUpdated] = useState<boolean>(false) // Used to redirect when the object is updated
   const { register, handleSubmit, formState: { errors } } = useForm<Scenario>()
   const onSubmit = (data: Scenario) => updateForm(data)
 

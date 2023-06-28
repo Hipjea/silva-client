@@ -23,6 +23,7 @@ export const AuthStatus = () => {
       <br />
       <button
         onClick={() => auth.signout(() => navigate("/"))}
+        data-testid="logout"
       >
         Sign out
       </button>

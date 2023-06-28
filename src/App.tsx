@@ -1,5 +1,6 @@
 import * as React from 'react'
 import {
+  BrowserRouter,
   Routes,
   Route,
   Link,
@@ -16,35 +17,37 @@ import { Updated } from "./components/scenarii/EditForm"
 const App = () => {
   return (
     <AuthProvider>
-      <h1>Auth Example</h1>
+      <h1>Silva Client</h1>
 
-      <Routes>
-        <Route element={<Layout />}>
-          <Route path="/" element={<PublicPage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/scenarii">
-            <Route index={true} element={<Scenarii />} />
-            <Route path=":id" element={<Scenario />} />
-            <Route path=":id/edit" element={<Updated />} />
+      <BrowserRouter>
+        <Routes>
+          <Route element={<Layout />}>
+            <Route path="/" element={<PublicPage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/scenarii">
+              <Route index={true} element={<Scenarii />} />
+              <Route path=":id" element={<Scenario />} />
+              <Route path=":id/edit" element={<Updated />} />
+            </Route>
+            <Route
+              path="/protected"
+              element={
+                <RequireAuth>
+                  <ProtectedPage />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="/admin"
+              element={
+                <RequireAdmin>
+                  <AdminPage />
+                </RequireAdmin>
+              }
+            />
           </Route>
-          <Route
-            path="/protected"
-            element={
-              <RequireAuth>
-                <ProtectedPage />
-              </RequireAuth>
-            }
-          />
-          <Route
-            path="/admin"
-            element={
-              <RequireAdmin>
-                <AdminPage />
-              </RequireAdmin>
-            }
-          />
-        </Route>
-      </Routes>
+        </Routes>
+      </BrowserRouter>
     </AuthProvider>
   )
 }

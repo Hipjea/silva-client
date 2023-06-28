@@ -1,22 +1,21 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
 import { jsx, css } from '@emotion/react'
+import { button } from '../config'
 
-
-const style = css`
-  color: hotpink;
-`
 
 interface Props {
   label: string
   callback: () => void
+  className?: string
 }
 
-const ButtonElement = ({ label, callback }: Props) => {
+const ButtonElement = ({ label, callback, className }: Props) => {
   return (
     <button
       onClick={callback}
-      css={style}
+      css={css`${button}`}
+      className={className}
     >
       {label}
     </button>

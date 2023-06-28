@@ -5,7 +5,15 @@ import type { RootState } from '../../store'
 import { useSelector } from 'react-redux'
 import { useAuth } from './Auth'
 import { ButtonElement } from '../ButtonElement'
+import styled from '@emotion/styled'
+import { theme } from '../../config'
 
+
+const Basic = ({ className }: any) => <span className={className}>Some text</span>
+
+const StyledBasic = styled(Basic)`
+  color: ${theme.colors.secondary}
+`
 
 export const AuthStatus = () => {
   const auth = useAuth()
@@ -26,6 +34,7 @@ export const AuthStatus = () => {
       Welcome {authState.email || localStorage.getItem("user")}
       <br />
       <ButtonElement label="Sign out" callback={() => auth.signout(() => navigate("/"))} />
+      <StyledBasic />
     </p>
   )
 }

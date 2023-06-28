@@ -1,14 +1,8 @@
 import { AuthProvider } from './auth/Auth'
 import Router from '../router'
 import { ThemeProvider } from '@emotion/react'
+import { theme } from '../config'
 
-
-export const theme = {
-  colors: {
-    primary: 'hotpink',
-    secondary: 'green'
-  }
-}
 
 const App = () => {
   return (

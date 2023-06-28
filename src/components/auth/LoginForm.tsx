@@ -1,8 +1,12 @@
+/** @jsxRuntime classic */
+/** @jsx jsx */
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { useAppDispatch } from '../../hooks/redux-hooks'
 import { loginUser } from '../../actions/authActions'
+import { jsx, css } from '@emotion/react'
+import { button } from '../../config'
 
 
 export const LoginForm = () => {
@@ -42,7 +46,7 @@ export const LoginForm = () => {
       {errors.email && <p>Please enter your email.</p>}
       <input type='password' {...register('password')} value="password" data-testid="password" />
       {errors.password && <p>Please enter your password.</p>}
-      <input type='submit' data-testid="submit" />
+      <input type='submit' data-testid="submit" css={css`${button}`} />
     </form>
   )
 }

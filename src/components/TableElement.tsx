@@ -1,3 +1,4 @@
+/** @jsxRuntime classic */
 /** @jsx jsx */
 import { nanoid } from "nanoid"
 import { jsx, css } from '@emotion/react'
@@ -21,7 +22,7 @@ const TableElement = ({ headers, data }: Props) => {
         <table key={nanoid()} css={style}>
             <thead key={nanoid()}>
                 <tr key={nanoid()}>
-                    { headers.map(header => {
+                    {headers.map(header => {
                         return (
                             <th scope="col" key={nanoid()}>
                                 {header}
@@ -31,10 +32,10 @@ const TableElement = ({ headers, data }: Props) => {
                 </tr>
             </thead>
             <tbody key={nanoid()}>
-                { data.map(trData => {
+                {data.map(trData => {
                     return (
                         <tr key={nanoid()}>
-                            { Object.entries(trData).map(([key, val]: any) => {
+                            {Object.entries(trData).map(([key, val]: any) => {
                                 return (
                                     <td key={key}>
                                         {val}
@@ -43,7 +44,7 @@ const TableElement = ({ headers, data }: Props) => {
                             })}
                         </tr>
                     )
-                }) }
+                })}
             </tbody>
         </table>
     )

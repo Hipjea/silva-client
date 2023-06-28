@@ -41,8 +41,7 @@ export const LoginForm = () => {
     <form onSubmit={handleSubmit((data) => postForm(data))}>
       <input {...register('email', { required: true })} value='test@localhost.com' data-testid="email" />
       {errors.email && <p>Please enter your email.</p>}
-      <input type='password' {...register('password')} value="password" />
-      <input type='password' {...register('password')} data-testid="password" />
+      <input type='password' {...register('password')} value="password" data-testid="password" />
       {errors.password && <p>Please enter your password.</p>}
       <input type='submit' data-testid="submit" />
     </form>

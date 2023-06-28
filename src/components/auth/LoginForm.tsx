@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useNavigate, useLocation } from 'react-router-dom'
-import { useAppDispatch } from '../hooks/redux-hooks'
-import { loginUser } from '../actions/authActions'
+import { useAppDispatch } from '../../hooks/redux-hooks'
+import { loginUser } from '../../actions/authActions'
 
 
 export const LoginForm = () => {
@@ -16,7 +16,6 @@ export const LoginForm = () => {
     handleSubmit,
     formState: { errors },
   } = useForm()
-
 
   useEffect(() => {
     if (loginAttempt) {

@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useNavigate, useLocation } from 'react-router-dom'
-import { useAppDispatch } from '../hooks/redux-hooks'
-import { loginUser } from '../actions/authActions'
+import { useAppDispatch } from '../../hooks/redux-hooks'
+import { loginUser } from '../../actions/authActions'
 
 
 export const LoginForm = () => {
@@ -16,7 +16,6 @@ export const LoginForm = () => {
     handleSubmit,
     formState: { errors },
   } = useForm()
-
 
   useEffect(() => {
     if (loginAttempt) {
@@ -41,8 +40,7 @@ export const LoginForm = () => {
     <form onSubmit={handleSubmit((data) => postForm(data))}>
       <input {...register('email', { required: true })} value='test@localhost.com' data-testid="email" />
       {errors.email && <p>Please enter your email.</p>}
-      <input type='password' {...register('password')} value="password" />
-      <input type='password' {...register('password')} data-testid="password" />
+      <input type='password' {...register('password')} value="password" data-testid="password" />
       {errors.password && <p>Please enter your password.</p>}
       <input type='submit' data-testid="submit" />
     </form>

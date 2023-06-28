@@ -1,4 +1,3 @@
-import React, { useState } from "react"
 import { API_URL } from "../../config"
 import axios from "axios"
 import type { Scenario } from "../../types"
@@ -25,7 +24,7 @@ export const Updated = () => {
       // setUpdated(true)
 
       // Solution 2 :
-      const promise = dispatch(updateScenario({id: scenario.id, ...data}))
+      const promise = dispatch(updateScenario({ id: scenario.id, ...data }))
       promise.then((_: any) => navigate(`/scenarii/${scenario.id}`, { replace: true }))
     })
   }
@@ -38,7 +37,7 @@ export const Updated = () => {
 
   return (
     scenario
-    ?
+      ?
       <>
         <form onSubmit={handleSubmit(onSubmit)}>
           <input type="text" defaultValue={scenario.author} {...register('author', { required: true })} />
@@ -46,6 +45,6 @@ export const Updated = () => {
           <input type="submit" />
         </form>
       </>
-    : null
-)
+      : null
+  )
 }

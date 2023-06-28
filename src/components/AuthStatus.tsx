@@ -5,6 +5,7 @@ import { CLIENT_TOKEN_NAME } from '../config'
 import type { RootState } from '../store'
 import { useSelector } from 'react-redux'
 import { useAuth } from './Auth'
+import { ButtonElement } from './ButtonElement'
 
 
 export const AuthStatus = () => {
@@ -21,11 +22,7 @@ export const AuthStatus = () => {
     <p>
       Welcome {authState.email || localStorage.getItem("user")}
       <br />
-      <button
-        onClick={() => auth.signout(() => navigate("/"))}
-      >
-        Sign out
-      </button>
+      <ButtonElement label="Sign out" callback={() => auth.signout(() => navigate("/"))} />
     </p>
   )
 }

@@ -2,7 +2,7 @@ import React from "react"
 import { rest } from "msw"
 import { setupServer } from "msw/node"
 import { fireEvent, screen, act, waitFor } from "@testing-library/react"
-import { App } from "../App"
+import { App } from "../components/App"
 import { renderWithProviders } from "../utils/testUtils"
 import '@testing-library/jest-dom/extend-expect'
 import userEvent from "@testing-library/user-event"
@@ -27,7 +27,7 @@ afterAll(() => server.close())
 
 test("Admin - Testing start screen and login button", async () => {
     renderWithProviders(<App />)
-    
+
     // We wait until the text "Silva Client" is in the document. If it isn't, it's an error.
     expect(screen.getByText(APP_NAME)).toBeInTheDocument()
     expect(screen.queryByText(/Welcome/i)).not.toBeInTheDocument()
@@ -45,7 +45,7 @@ test("Admin - Testing start screen and login button", async () => {
         expect(screen.getByText(/Welcome test@localhost.com/i)).toBeInTheDocument()
         expect(setItem).toHaveBeenCalled()
     })
-    
+
 })
 
 test("Admin - Logout", async () => {

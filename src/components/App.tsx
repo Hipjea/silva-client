@@ -1,5 +1,5 @@
-import { AuthProvider } from './components/auth/Auth'
-import Router from './router'
+import { AuthProvider } from './auth/Auth'
+import Router from '../router'
 
 
 const App = () => {

@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react"
-import { API_URL } from "../../config"
-import { useParams } from "react-router-dom"
-import axios from "axios"
-import type { AxiosResponse } from "axios"
-import type { Scenario } from "../../types"
-import { Link } from "react-router-dom"
-import TableElement from "../TableElement"
+import React, { useEffect, useState } from 'react'
+import { API_URL } from '../../config'
+import { useParams } from 'react-router-dom'
+import axios from 'axios'
+import type { AxiosResponse } from 'axios'
+import type { Scenario } from '../../types'
+import { Link } from 'react-router-dom'
+import TableElement from '../TableElement'
 
 
 export default function Scenario() {
@@ -21,7 +21,7 @@ export default function Scenario() {
     scenario
       ? <>
           <TableElement 
-            headers = {["Author", "Name", "Level", "Subject", "Description", "Created at", "Updated at",]}
+            headers = {['Author', 'Name', 'Level', 'Subject', 'Description', 'Created at', 'Updated at',]}
             data = {[scenario]}
           />
           <Link to={`/scenarii/${id}/edit`} state={{ scenario: scenario }}>

@@ -25,45 +25,44 @@ afterEach(() => server.resetHandlers())
 
 afterAll(() => server.close())
 
-test("Testing start screen and login button", async () => {
+test("Admin - Testing start screen and login button", async () => {
     renderWithProviders(<App />)
     
     // We wait until the text "Silva Client" is in the document. If it isn't, it's an error.
     expect(screen.getByText(APP_NAME)).toBeInTheDocument()
     expect(screen.queryByText(/Welcome/i)).not.toBeInTheDocument()
 
-    fireEvent.click(screen.getByRole('link', { name: /Admin Page/i }))
+    fireEvent.click(screen.getByRole("link", { name: "Admin Page" }))
     expect(screen.getByText(/You are not logged in/i)).toBeInTheDocument()
 
     const setItem = jest.spyOn(Storage.prototype, 'setItem')
 
-    userEvent.type(screen.getByTestId("email"), "test@localhost.com")
-    userEvent.type(screen.getByTestId("password"), "password")
-    act(() => fireEvent.click(screen.getByTestId("submit")))
+    userEvent.type(screen.getByTestId(/email/i), "test@localhost.com")
+    userEvent.type(screen.getByTestId(/password/i), "password")
+    act(() => userEvent.click(screen.getByTestId(/submit/i)))
 
     waitFor(() => {
-        expect(screen.getByText(APP_NAME)).toBeInTheDocument()
-        expect(screen.getByText("Welcome")).toBeInTheDocument()
+        expect(screen.getByText(/Welcome test@localhost.com/i)).toBeInTheDocument()
         expect(setItem).toHaveBeenCalled()
     })
     
 })
 
-test("Logout", async () => {
+test("Admin - Logout", async () => {
     renderWithProviders(<App />)
 
     fireEvent.click(screen.getByRole('link', { name: /Admin Page/i }))
 
     const setItem = jest.spyOn(Storage.prototype, 'setItem')
 
-    userEvent.type(screen.getByTestId("email"), "test@localhost.com")
-    userEvent.type(screen.getByTestId("password"), "password")
-    act(() => fireEvent.click(screen.getByTestId("submit")))
+    userEvent.type(screen.getByTestId(/email/i), "test@localhost.com")
+    userEvent.type(screen.getByTestId(/password/i), "password")
+    act(() => fireEvent.click(screen.getByTestId(/submit/i)))
 
     waitFor(() => {
         expect(setItem).toHaveBeenCalled()
 
-        act(() => fireEvent.click(screen.getByTestId("logout")))
+        act(() => fireEvent.click(screen.getByTestId(/logout/i)))
         expect(setItem).not.toHaveBeenCalled()
 
     })

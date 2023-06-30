@@ -8,7 +8,6 @@ const App = () => {
   return (
     <AuthProvider>
       <ThemeProvider theme={theme}>
-        <h1>Silva Client</h1>
         <Router />
       </ThemeProvider>
     </AuthProvider>

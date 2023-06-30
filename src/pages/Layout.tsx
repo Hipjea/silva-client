@@ -5,7 +5,7 @@ import StyledMainHeader from '../containers/MainHeader/MainHeader'
 import { StyledListElement as ListElement } from '../containers/MainHeader/components/ListElement'
 
 
-const Layout = () => {
+export const Layout = () => {
   return (
     <div>
       <StyledMainHeader>
@@ -27,5 +27,3 @@ const Layout = () => {
     </div>
   )
 }
-
-export default Layout

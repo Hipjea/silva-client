@@ -10,9 +10,14 @@ import styled from '@emotion/styled'
 import { theme } from '../../config'
 
 
-const Basic = ({ className }: any) => <span className={className}>Some text</span>
+interface Props {
+  children: JSX.Element
+  className?: string
+}
 
-const StyledBasic = styled(Basic)`
+const Username = ({ children, className }: Props) => <span className={className}>{children}</span>
+
+const StyledUsername = styled(Username)`
   color: ${theme.colors.secondary}
 `
 
@@ -22,6 +27,12 @@ export const AuthStatus = () => {
   const authToken = Cookies.get(CLIENT_TOKEN_NAME)
   const authState = useSelector((state: RootState) => state.auth)
   const [isPushed, setIsPushed] = useState<boolean>(false)
+
+  const userInfo = authState.email && authState.firstname && authState.lastname
+    ? authState
+    : localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user") as string) : null
+
+  const userInfoDisplay = userInfo && `${userInfo.firstname} ${userInfo.lastname} (${userInfo.email})`
 
   const handleSubmit = () => {
     setIsPushed(true)
@@ -34,22 +45,25 @@ export const AuthStatus = () => {
   if (!authToken) {
     return (
       <>
-        <p>You are not logged in.<br />Sign in or <Link to="/register">register</Link>.</p>
+        <p>You are not logged in. <Link to="/login">Sign in</Link> or <Link to="/register">register</Link>.</p>
       </>
     )
   }
 
   return (
     <p>
-      Welcome {authState.email || localStorage.getItem("user")}
-      <br />
-      <StyledButton
-        label="Sign out"
-        callback={() => handleSubmit()}
-        isPushed={isPushed}
-        disabled={isPushed}
-      />
-      <StyledBasic />
+      <StyledUsername>
+        <>
+          {userInfo && userInfoDisplay}
+          &nbsp;
+          <StyledButton
+            label="Sign out"
+            callback={() => handleSubmit()}
+            isPushed={isPushed}
+            disabled={isPushed}
+          />
+        </>
+      </StyledUsername>
     </p>
   )
 }

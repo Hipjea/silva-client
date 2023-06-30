@@ -13,7 +13,7 @@ const ListElement = ({ to, name, ...rest }: Props) => {
   return (
     <li className={rest.className}>
       <NavLink {...rest}
-        to={to}
+        end to={to}
         className={({ isActive }) => isActive ? "active" : ""}
       >
         {name}

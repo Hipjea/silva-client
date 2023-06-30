@@ -5,7 +5,7 @@ import { CLIENT_TOKEN_NAME } from '../../config'
 import type { RootState } from '../../store'
 import { useSelector } from 'react-redux'
 import { useAuth } from './Auth'
-import { StyledButton } from '../ButtonElement'
+import { StyledButton } from '../Button'
 import styled from '@emotion/styled'
 import { theme } from '../../config'
 

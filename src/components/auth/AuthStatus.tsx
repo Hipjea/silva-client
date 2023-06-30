@@ -39,7 +39,7 @@ export const AuthStatus = () => {
   if (!authToken) {
     return (
       <>
-        <p>You are not logged in.<br />Sign in or <Link to="/register">register</Link>.</p>
+        <p>You are not logged in.<br /><Link to="/login">Sign in</Link> or <Link to="/register">register</Link>.</p>
       </>
     )
   }

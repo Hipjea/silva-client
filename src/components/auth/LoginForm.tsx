@@ -8,6 +8,12 @@ import { loginUser } from '../../actions/authActions'
 import { button } from '../../config'
 
 
+type FormInputs = {
+  email: string
+  password: string
+  login: string
+}
+
 export const LoginForm = () => {
   const navigate = useNavigate()
   const location = useLocation()
@@ -17,8 +23,10 @@ export const LoginForm = () => {
   const {
     register,
     handleSubmit,
+    setError,
+    clearErrors,
     formState: { errors },
-  } = useForm()
+  } = useForm<FormInputs>()
 
   useEffect(() => {
     if (loginAttempt) {
@@ -34,8 +42,12 @@ export const LoginForm = () => {
           password: data.password
         }
       }
-    )).then(() => {
-      setLoginAttempt(true)
+    )).then((response: any) => {
+      if (response.error) {
+        setError('login', { type: 'custom', message: response.payload });
+      } else {
+        setLoginAttempt(true)
+      }
     })
   }
 
@@ -48,10 +60,16 @@ export const LoginForm = () => {
       </div>
       <div>
         <label>Password</label>
-        <input type='password' {...register('password')} data-testid="password" />
+        <input type='password' {...register('password')} data-testid=" password" />
         {errors.password && <p>Please enter your password.</p>}
       </div>
-      <input type='submit' data-testid="submit" css={css`${button}`} />
+      {errors.login ?
+        <p>
+          {errors.login.message}
+          <button type="button" onClick={() => { clearErrors(); }}>Retenter</button>
+        </p>
+        : <input type='submit' data-testid="submit" css={css`${button}`} />
+      }
     </form>
   )
 }

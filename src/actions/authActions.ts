@@ -23,11 +23,10 @@ export const loginUser = createAsyncThunk(
           localStorage.setItem("user", data.data.email)
         }
 
-        thunkAPI.dispatch(setEmail(data.data.email))
+        return thunkAPI.dispatch(setEmail(data.data.email))
       })
-    } catch (error) {
-      console.log(error)
-      return {}
+    } catch (error: any) {
+      return thunkAPI.rejectWithValue(error.response.data)
     }
   }
 )

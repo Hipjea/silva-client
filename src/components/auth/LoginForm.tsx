@@ -1,11 +1,10 @@
-/** @jsxRuntime classic */
-/** @jsx jsx */
+/** @jsxImportSource @emotion/react */
+import { css } from '@emotion/react'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { useAppDispatch } from '../../hooks/redux-hooks'
 import { loginUser } from '../../actions/authActions'
-import { jsx, css } from '@emotion/react'
 import { button } from '../../config'
 
 

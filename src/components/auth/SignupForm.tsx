@@ -4,21 +4,29 @@ import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { useAppDispatch } from '../../hooks/redux-hooks'
-import { loginUser } from '../../actions/authActions'
+import { signupUser } from '../../actions/authActions'
 import { button } from '../../config'
 
 
-export const LoginForm = () => {
+type FormInputs = {
+  email: string
+  password: string
+  register: string
+}
+
+export const SignupForm = () => {
   const navigate = useNavigate()
   const location = useLocation()
-  const [loginAttempt, setLoginAttempt] = useState<boolean>(false)
+  const [loginAttempt, setSignupAttempt] = useState<boolean>(false)
   const dispatch = useAppDispatch()
 
   const {
     register,
     handleSubmit,
+    setError,
+    clearErrors,
     formState: { errors },
-  } = useForm()
+  } = useForm<FormInputs>()
 
   useEffect(() => {
     if (loginAttempt) {
@@ -27,15 +35,19 @@ export const LoginForm = () => {
   }, [loginAttempt])
 
   const postForm = async (data: any) => {
-    dispatch(loginUser(
+    dispatch(signupUser(
       {
         user: {
           email: data.email,
           password: data.password
         }
       }
-    )).then(() => {
-      setLoginAttempt(true)
+    )).then((response: any) => {
+      if (response.error) {
+        setError('register', { type: 'custom', message: response.payload });
+      } else {
+        setSignupAttempt(true)
+      }
     })
   }
 
@@ -51,7 +63,13 @@ export const LoginForm = () => {
         <input type='password' {...register('password')} data-testid="password" />
         {errors.password && <p>Please enter your password.</p>}
       </div>
-      <input type='submit' data-testid="submit" css={css`${button}`} />
+      {errors.register ?
+        <p>
+          {errors.register.message}
+          <button type="button" onClick={() => { clearErrors(); }}>Retenter</button>
+        </p>
+        : <input type='submit' data-testid="submit" css={css`${button}`} />
+      }
     </form>
   )
 }

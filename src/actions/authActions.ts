@@ -57,3 +57,28 @@ export const bounceUser = createAction(
   }
 )
 
+/**
+ * User signup action
+ */
+export const signupUser = createAsyncThunk(
+  'user/signup',
+  async (data: User, thunkAPI) => {
+    try {
+      return await axios.post(`${API_URL}/signup`, data).then((res: AxiosResponse) => {
+        const headers = res.headers as AxiosResponseHeaders
+        const data = res.data as AxiosResponse
+        const authHeader = headers.get('Authorization') as string
+
+        if (authHeader.startsWith('Bearer ')) {
+          const accessToken = authHeader.substring(7, authHeader.length)
+          Cookies.set(CLIENT_TOKEN_NAME, accessToken, { secure: true })
+          localStorage.setItem("user", data.data.email)
+        }
+
+        return thunkAPI.dispatch(setEmail(data.data.email))
+      })
+    } catch (error: any) {
+      return thunkAPI.rejectWithValue(error.response.data.status.message)
+    }
+  }
+)

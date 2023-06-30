@@ -10,9 +10,14 @@ import styled from '@emotion/styled'
 import { theme } from '../../config'
 
 
-const Basic = ({ className }: any) => <span className={className}>Some text</span>
+interface Props {
+  children: JSX.Element
+  className?: string
+}
 
-const StyledBasic = styled(Basic)`
+const Username = ({ children, className }: Props) => <span className={className}>{children}</span>
+
+const StyledUsername = styled(Username)`
   color: ${theme.colors.secondary}
 `
 
@@ -41,15 +46,17 @@ export const AuthStatus = () => {
 
   return (
     <p>
-      Welcome {authState.email || localStorage.getItem("user")}
-      <br />
+      <StyledUsername>
+        <>
+          Welcome {authState.email || localStorage.getItem("user")}
+        </>
+      </StyledUsername>
       <StyledButton
         label="Sign out"
         callback={() => handleSubmit()}
         isPushed={isPushed}
         disabled={isPushed}
       />
-      <StyledBasic />
     </p>
   )
 }

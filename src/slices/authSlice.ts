@@ -1,6 +1,11 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
-import { loginUser } from '../actions/authActions'
-import { AuthState } from '../types'
+import { loginUser, signupUser } from '../actions/authActions'
+
+
+export interface AuthState {
+  isAuthenticated: boolean
+  email: null | string
+}
 
 const initialState: AuthState = {
   isAuthenticated: false,
@@ -24,11 +29,14 @@ export const authSlice = createSlice({
     },
     setEmail: (state, action: PayloadAction<string>) => {
       state.email = action.payload
-    },
+    }
   },
   extraReducers: (builder) => {
     builder.addCase(loginUser.fulfilled, (state, action) => {
       state.isAuthenticated = true
+    })
+    builder.addCase(signupUser.rejected, (state, action) => {
+      state.isAuthenticated = false
     })
   }
 })

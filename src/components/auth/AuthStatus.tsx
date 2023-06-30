@@ -28,6 +28,12 @@ export const AuthStatus = () => {
   const authState = useSelector((state: RootState) => state.auth)
   const [isPushed, setIsPushed] = useState<boolean>(false)
 
+  const userInfo = authState.email && authState.firstname && authState.lastname
+    ? authState
+    : localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user") as string) : null
+
+  const userInfoDisplay = userInfo && `${userInfo.firstname} ${userInfo.lastname} (${userInfo.email})`
+
   const handleSubmit = () => {
     setIsPushed(true)
     auth.signout(() => {
@@ -39,7 +45,7 @@ export const AuthStatus = () => {
   if (!authToken) {
     return (
       <>
-        <p>You are not logged in.<br /><Link to="/login">Sign in</Link> or <Link to="/register">register</Link>.</p>
+        <p>You are not logged in. <Link to="/login">Sign in</Link> or <Link to="/register">register</Link>.</p>
       </>
     )
   }
@@ -48,15 +54,16 @@ export const AuthStatus = () => {
     <p>
       <StyledUsername>
         <>
-          Welcome {authState.email || localStorage.getItem("user")}
+          {userInfo && userInfoDisplay}
+          &nbsp;
+          <StyledButton
+            label="Sign out"
+            callback={() => handleSubmit()}
+            isPushed={isPushed}
+            disabled={isPushed}
+          />
         </>
       </StyledUsername>
-      <StyledButton
-        label="Sign out"
-        callback={() => handleSubmit()}
-        isPushed={isPushed}
-        disabled={isPushed}
-      />
     </p>
   )
 }

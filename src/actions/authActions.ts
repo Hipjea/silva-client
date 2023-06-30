@@ -1,9 +1,18 @@
 import { createAction, createAsyncThunk } from '@reduxjs/toolkit'
 import { API_URL, CLIENT_TOKEN_NAME } from '../config'
 import axios, { AxiosResponse, AxiosResponseHeaders } from 'axios'
-import type { User } from '../types'
 import Cookies from 'js-cookie'
 import { signOut, setEmail } from '../slices/authSlice'
+
+
+export interface User {
+  user: {
+    email: string
+    password: string
+    firstname?: string
+    lastname?: string
+  }
+}
 
 /**
  * User login action
@@ -64,16 +73,7 @@ export const signupUser = createAsyncThunk(
   async (data: User, thunkAPI) => {
     try {
       return await axios.post(`${API_URL}/signup`, data).then((res: AxiosResponse) => {
-        const headers = res.headers as AxiosResponseHeaders
         const data = res.data as AxiosResponse
-        const authHeader = headers.get('Authorization') as string
-
-        if (authHeader.startsWith('Bearer ')) {
-          const accessToken = authHeader.substring(7, authHeader.length)
-          Cookies.set(CLIENT_TOKEN_NAME, accessToken, { secure: true })
-          localStorage.setItem("user", data.data.email)
-        }
-
         return thunkAPI.dispatch(setEmail(data.data.email))
       })
     } catch (error: any) {

@@ -11,13 +11,15 @@ import { button } from '../../config'
 type FormInputs = {
   email: string
   password: string
+  firstname: string
+  lastname: string
   register: string
 }
 
 export const SignupForm = () => {
   const navigate = useNavigate()
   const location = useLocation()
-  const [loginAttempt, setSignupAttempt] = useState<boolean>(false)
+  const [signupAttempt, setSignupAttempt] = useState<boolean>(false)
   const dispatch = useAppDispatch()
 
   const {
@@ -29,17 +31,19 @@ export const SignupForm = () => {
   } = useForm<FormInputs>()
 
   useEffect(() => {
-    if (loginAttempt) {
-      navigate(location.state && location.state.from.pathname ? location.state.from.pathname : "/", { replace: true })
+    if (signupAttempt) {
+      navigate("/", { replace: true })
     }
-  }, [loginAttempt])
+  }, [signupAttempt])
 
-  const postForm = async (data: any) => {
+  const postForm = async (data: FormInputs) => {
     dispatch(signupUser(
       {
         user: {
           email: data.email,
-          password: data.password
+          password: data.password,
+          firstname: data.firstname,
+          lastname: data.lastname
         }
       }
     )).then((response: any) => {
@@ -54,13 +58,23 @@ export const SignupForm = () => {
   return (
     <form onSubmit={handleSubmit((data) => postForm(data))}>
       <div>
+        <label>Firstname</label>
+        <input {...register('firstname')} value="jean" data-testid="firstname" />
+        {errors.firstname && <p>Please enter your firstname.</p>}
+      </div>
+      <div>
+        <label>Lastname</label>
+        <input {...register('lastname')} value="jean" data-testid="lastname" />
+        {errors.lastname && <p>Please enter your lastname.</p>}
+      </div>
+      <div>
         <label>Email</label>
         <input {...register('email', { required: true })} data-testid="email" />
         {errors.email && <p>Please enter your email.</p>}
       </div>
       <div>
         <label>Password</label>
-        <input type='password' {...register('password')} data-testid="password" />
+        <input type='password' {...register('password')} value="password" data-testid="password" />
         {errors.password && <p>Please enter your password.</p>}
       </div>
       {errors.register ?

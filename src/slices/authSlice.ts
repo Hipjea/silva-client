@@ -38,6 +38,9 @@ export const authSlice = createSlice({
     builder.addCase(loginUser.rejected, (state, action) => {
       state.isAuthenticated = false
     })
+    builder.addCase(signupUser.fulfilled, (state, action) => {
+      state.isAuthenticated = true
+    })
     builder.addCase(signupUser.rejected, (state, action) => {
       state.isAuthenticated = false
     })

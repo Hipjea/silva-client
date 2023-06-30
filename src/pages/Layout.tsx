@@ -2,7 +2,7 @@ import { Outlet } from 'react-router-dom'
 import { AuthStatus } from '../components/auth/AuthStatus'
 import logo from '../assets/images/logo-silva-numerica.png'
 import StyledMainHeader from '../containers/MainHeader/MainHeader'
-import ListElement from '../containers/MainHeader/components/ListElement'
+import { StyledListElement as ListElement } from '../containers/MainHeader/components/ListElement'
 
 
 const Layout = () => {

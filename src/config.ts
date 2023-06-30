@@ -7,6 +7,11 @@ export const theme = {
   colors: {
     primary: '#f25d27',
     secondary: '#5d2c20'
+  },
+  navlink: {
+    paddingY: '10px',
+    paddingX: '5px',
+    activeHeight: '3px'
   }
 }
 

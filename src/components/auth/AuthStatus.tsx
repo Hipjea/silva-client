@@ -1,10 +1,11 @@
+import { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import Cookies from 'js-cookie'
 import { CLIENT_TOKEN_NAME } from '../../config'
 import type { RootState } from '../../store'
 import { useSelector } from 'react-redux'
 import { useAuth } from './Auth'
-import { ButtonElement } from '../ButtonElement'
+import { StyledButton } from '../ButtonElement'
 import styled from '@emotion/styled'
 import { theme } from '../../config'
 
@@ -20,6 +21,15 @@ export const AuthStatus = () => {
   const navigate = useNavigate()
   const authToken = Cookies.get(CLIENT_TOKEN_NAME)
   const authState = useSelector((state: RootState) => state.auth)
+  const [isPushed, setIsPushed] = useState<boolean>(false)
+
+  const handleSubmit = () => {
+    setIsPushed(true)
+    auth.signout(() => {
+      navigate("/")
+      setIsPushed(false)
+    })
+  }
 
   if (!authToken) {
     return (
@@ -33,7 +43,12 @@ export const AuthStatus = () => {
     <p>
       Welcome {authState.email || localStorage.getItem("user")}
       <br />
-      <ButtonElement label="Sign out" callback={() => auth.signout(() => navigate("/"))} />
+      <StyledButton
+        label="Sign out"
+        callback={() => handleSubmit()}
+        isPushed={isPushed}
+        disabled={isPushed}
+      />
       <StyledBasic />
     </p>
   )

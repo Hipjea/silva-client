@@ -1,8 +1,3 @@
-export interface AuthState {
-  isAuthenticated: boolean
-  email: null | string
-}
-
 export interface ScenariiState {
   scenarii: Array<IScenario>
 }

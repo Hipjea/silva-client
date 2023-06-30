@@ -1,7 +1,6 @@
-/** @jsxRuntime classic */
-/** @jsx jsx */
+/** @jsxImportSource @emotion/react */
+import { css } from '@emotion/react'
 import { nanoid } from "nanoid"
-import { jsx, css } from '@emotion/react'
 
 
 const style = css`

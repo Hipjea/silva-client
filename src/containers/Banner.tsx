@@ -4,13 +4,24 @@ import headerImg from '../assets/images/silva-header.jpg'
 
 
 const style = css`
-  display: flex;
-  justify-content: center;
-  width: 100%;
   background-image: url(${headerImg});
   background-size: cover;
-  padding: 50px 0;
-  color: white;
+  background-position: 50%;
+
+  .inner {
+    backdrop-filter: blur(0px);
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding: 50px 0;
+    color: white;
+    transition: all .25s ease-in-out;
+
+    &:hover {
+      backdrop-filter: blur(1.8px);
+    }
+  }
 `
 
 interface Props {
@@ -21,7 +32,9 @@ interface Props {
 const Banner = ({ children, className }: Props) => {
   return (
     <div css={style}>
-      {children}
+      <div className="inner">
+        {children}
+      </div>
     </div>
   )
 }

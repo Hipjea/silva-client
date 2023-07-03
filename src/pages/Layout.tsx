@@ -21,13 +21,13 @@ export const Layout = () => {
               <ListElement to="/protected" name="Protected Page" />
               <ListElement to="/admin" name="Admin Page" />
               <ListElement to="/scenarii" name="Scenarii Page" />
+              <AuthStatus />
             </ul>
           </nav>
         </>
       </StyledMainHeader>
 
       <main css={main}>
-        <AuthStatus />
         <Outlet />
       </main>
     </ThemeProvider>

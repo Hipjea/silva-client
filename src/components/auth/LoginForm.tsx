@@ -2,7 +2,7 @@
 import { css } from '@emotion/react'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { useNavigate, useLocation } from 'react-router-dom'
+import { useNavigate, useLocation, Link } from 'react-router-dom'
 import { useAppDispatch } from '../../hooks/redux-hooks'
 import { loginUser } from '../../actions/authActions'
 import { button } from '../../config'
@@ -52,24 +52,27 @@ export const LoginForm = () => {
   }
 
   return (
-    <form onSubmit={handleSubmit((data) => postForm(data))}>
-      <div>
-        <label>Email</label>
-        <input {...register('email', { required: true })} data-testid="email" />
-        {errors.email && <p>Please enter your email.</p>}
-      </div>
-      <div>
-        <label>Password</label>
-        <input type='password' {...register('password')} data-testid=" password" />
-        {errors.password && <p>Please enter your password.</p>}
-      </div>
-      {errors.login ?
-        <p>
-          {errors.login.message}
-          <button type="button" onClick={() => { clearErrors(); }}>Retenter</button>
-        </p>
-        : <input type='submit' data-testid="submit" css={css`${button}`} />
-      }
-    </form>
+    <>
+      <form onSubmit={handleSubmit((data) => postForm(data))}>
+        <div>
+          <label>Email</label>
+          <input {...register('email', { required: true })} data-testid="email" />
+          {errors.email && <p>Please enter your email.</p>}
+        </div>
+        <div>
+          <label>Password</label>
+          <input type='password' {...register('password')} data-testid=" password" />
+          {errors.password && <p>Please enter your password.</p>}
+        </div>
+        {errors.login ?
+          <p>
+            {errors.login.message}
+            <button type="button" onClick={() => { clearErrors(); }}>Retenter</button>
+          </p>
+          : <input type='submit' data-testid="submit" css={css`${button}`} />
+        }
+      </form>
+      <Link to="/register">S'enregistrer</Link>
+    </>
   )
 }

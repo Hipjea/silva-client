@@ -3,11 +3,14 @@ import { AuthStatus } from '../components/auth/AuthStatus'
 import logo from '../assets/images/logo-silva-numerica.png'
 import StyledMainHeader from '../containers/MainHeader/MainHeader'
 import { StyledListElement as ListElement } from '../containers/MainHeader/components/ListElement'
+import { ThemeProvider, Global } from '@emotion/react'
+import { reset, theme } from '../config'
 
 
 export const Layout = () => {
   return (
-    <div>
+    <ThemeProvider theme={theme}>
+      <Global styles={reset} />
       <StyledMainHeader>
         <>
           <img src={logo} alt="Logo Silva Numerica" width="100" />
@@ -24,6 +27,6 @@ export const Layout = () => {
 
       <AuthStatus />
       <Outlet />
-    </div>
+    </ThemeProvider>
   )
 }

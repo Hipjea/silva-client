@@ -1,16 +1,17 @@
+/** @jsxImportSource @emotion/react */
 import { Outlet } from 'react-router-dom'
 import { AuthStatus } from '../components/auth/AuthStatus'
 import logo from '../assets/images/logo-silva-numerica.png'
 import StyledMainHeader from '../containers/MainHeader/MainHeader'
 import { StyledListElement as ListElement } from '../containers/MainHeader/components/ListElement'
 import { ThemeProvider, Global } from '@emotion/react'
-import { reset, theme } from '../config'
+import { body, main, reset, theme } from '../config'
 
 
 export const Layout = () => {
   return (
     <ThemeProvider theme={theme}>
-      <Global styles={reset} />
+      <Global styles={[reset, body]} />
       <StyledMainHeader>
         <>
           <img src={logo} alt="Logo Silva Numerica" width="100" />
@@ -25,8 +26,10 @@ export const Layout = () => {
         </>
       </StyledMainHeader>
 
-      <AuthStatus />
-      <Outlet />
+      <main css={main}>
+        <AuthStatus />
+        <Outlet />
+      </main>
     </ThemeProvider>
   )
 }

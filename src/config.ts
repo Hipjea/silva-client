@@ -66,6 +66,29 @@ export const reset = css`
   }
 `
 
+export const body = css`
+  body {
+    font-family: Arial,Helvetica,sans-serif,sans-serif;
+    letter-spacing: normal;
+    word-spacing: normal;
+  }
+
+  #root {
+    width: 100%;
+    height: 100vh;
+  }
+`
+
+export const main = css`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-width: 1040px;
+  margin-left: auto;
+  margin-right: auto;
+`
+
 export const button = css`
   background-color: ${theme.colors.primary};
   color: white;

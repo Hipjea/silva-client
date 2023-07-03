@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import styled from '@emotion/styled'
-import { button } from '../config'
+import { buttonLink } from '../config'
 import { theme } from '../config'
 
 
@@ -29,7 +29,7 @@ const ButtonElement = ({ label, callback, isPushed, disabled, ...rest }: Props) 
 }
 
 const StyledButton = styled(ButtonElement)`
-  ${button}
+  ${buttonLink}
   &:hover,
   &:disabled {
     color: white;

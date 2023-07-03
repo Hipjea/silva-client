@@ -96,3 +96,10 @@ export const button = css`
   border: none;
   padding: 5px 10px;
 `
+
+export const buttonLink = css`
+  background-color: transparent;
+  color: ${theme.colors.primary};
+  padding: 0;
+  border: none;
+`

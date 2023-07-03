@@ -1,8 +1,3 @@
-export interface AuthState {
-  isAuthenticated: boolean
-  email: null | string
-}
-
 export interface ScenariiState {
   scenarii: Array<IScenario>
 }
@@ -41,9 +36,9 @@ export interface AuthContextType {
   user: User
 }
 
-export interface User {
-  user: {
-    email: string
-    password: string
-  }
+export interface UserProps {
+  email: string
+  password: string
+  firstname: string
+  lastname: string
 }

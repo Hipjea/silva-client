@@ -5,10 +5,10 @@ import logo from '../assets/images/logo-silva-numerica.png'
 import StyledMainHeader from '../containers/MainHeader/MainHeader'
 import { StyledListElement as ListElement } from '../containers/MainHeader/components/ListElement'
 import { ThemeProvider, Global } from '@emotion/react'
-import { body, main, reset, theme } from '../config'
+import { body, reset, theme } from '../config'
 
 
-export const Layout = () => {
+export const PublicLayout = () => {
   return (
     <ThemeProvider theme={theme}>
       <Global styles={[reset, body]} />
@@ -27,7 +27,7 @@ export const Layout = () => {
         </>
       </StyledMainHeader>
 
-      <main css={main}>
+      <main>
         <Outlet />
       </main>
     </ThemeProvider>

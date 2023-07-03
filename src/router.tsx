@@ -3,20 +3,20 @@ import { RequireAuth, RequireAdmin } from './components/auth/Auth'
 import Scenarii from "./components/scenarii/Scenarii"
 import Scenario from "./components/scenarii/Scenario"
 import { Updated } from "./components/scenarii/EditForm"
-import Layout from "./pages/Layout"
-import LoginPage from "./pages/LoginPage"
-import PublicPage from "./pages/PublicPage"
-import ProtectedPage from "./pages/ProtectedPage"
-import AdminPage from "./pages/AdminPage"
+import { Layout, LoginPage, HomePage, PublicLayout, ProtectedPage, AdminPage, RegisterPage } from "./pages"
 
 
 const Router = () => {
   return (
     <BrowserRouter>
       <Routes>
+        <Route element={<PublicLayout />}>
+          <Route path="/" element={<HomePage />} />
+        </Route>
+
         <Route element={<Layout />}>
-          <Route path="/" element={<PublicPage />} />
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
           <Route path="/scenarii">
             <Route index={true} element={<Scenarii />} />
             <Route path=":id" element={<Scenario />} />

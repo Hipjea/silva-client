@@ -13,16 +13,16 @@ const ListElement = ({ to, name, ...rest }: Props) => {
   return (
     <li className={rest.className}>
       <NavLink {...rest}
-        to={to}
+        end to={to}
         className={({ isActive }) => isActive ? "active" : ""}
       >
-        {name}
+        <span>{name}</span>
       </NavLink>
     </li>
   )
 }
 
-const StyledListElement = styled(ListElement)`
+export const listElementCss = `
   & {
     a {
       text-decoration: none;
@@ -44,6 +44,10 @@ const StyledListElement = styled(ListElement)`
       }
     }
   }
+`
+
+const StyledListElement = styled(ListElement)`
+  ${listElementCss}
 `
 
 export { StyledListElement }

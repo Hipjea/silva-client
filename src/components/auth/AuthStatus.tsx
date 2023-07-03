@@ -1,4 +1,6 @@
+/** @jsxImportSource @emotion/react */
 import { useState } from 'react'
+import { css } from '@emotion/react'
 import { useNavigate, Link } from 'react-router-dom'
 import Cookies from 'js-cookie'
 import { CLIENT_TOKEN_NAME } from '../../config'
@@ -8,11 +10,17 @@ import { useAuth } from './Auth'
 import { StyledButton } from '../Button'
 import styled from '@emotion/styled'
 import { theme } from '../../config'
+import { StyledListElement as ListElement, listElementCss } from '../../containers/MainHeader/components/ListElement'
 
 
-const Basic = ({ className }: any) => <span className={className}>Some text</span>
+interface Props {
+  children: JSX.Element
+  className?: string
+}
 
-const StyledBasic = styled(Basic)`
+const Username = ({ children, className }: Props) => <span className={className}>{children}</span>
+
+const StyledUsername = styled(Username)`
   color: ${theme.colors.secondary}
 `
 
@@ -22,6 +30,12 @@ export const AuthStatus = () => {
   const authToken = Cookies.get(CLIENT_TOKEN_NAME)
   const authState = useSelector((state: RootState) => state.auth)
   const [isPushed, setIsPushed] = useState<boolean>(false)
+
+  const userInfo = authState.email && authState.firstname && authState.lastname
+    ? authState
+    : localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user") as string) : null
+
+  const userInfoDisplay = userInfo && `${userInfo.firstname} ${userInfo.lastname} (${userInfo.email})`
 
   const handleSubmit = () => {
     setIsPushed(true)
@@ -33,23 +47,26 @@ export const AuthStatus = () => {
 
   if (!authToken) {
     return (
-      <>
-        <p>You are not logged in.<br />Sign in or <Link to="/register">register</Link>.</p>
-      </>
+      <ListElement to="/login" name="Connexion" />
     )
   }
 
   return (
-    <p>
-      Welcome {authState.email || localStorage.getItem("user")}
-      <br />
-      <StyledButton
-        label="Sign out"
-        callback={() => handleSubmit()}
-        isPushed={isPushed}
-        disabled={isPushed}
-      />
-      <StyledBasic />
-    </p>
+    <li css={{ listElementCss }}>
+      <Link to="/">
+        <StyledUsername>
+          <>
+            {userInfo && userInfoDisplay}
+            &nbsp;
+            <StyledButton
+              label="Sign out"
+              callback={() => handleSubmit()}
+              isPushed={isPushed}
+              disabled={isPushed}
+            />
+          </>
+        </StyledUsername>
+      </Link>
+    </li>
   )
 }

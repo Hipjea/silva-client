@@ -15,7 +15,7 @@ const MainHeader = ({ children, className }: Props) => {
 }
 
 const StyledMainHeader = styled(MainHeader)`
-  display: inline-flex;
+  display: flex;
   width: 100%;
 
   nav {

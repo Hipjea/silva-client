@@ -1,4 +1,6 @@
+/** @jsxImportSource @emotion/react */
 import { useState } from 'react'
+import { css } from '@emotion/react'
 import { useNavigate, Link } from 'react-router-dom'
 import Cookies from 'js-cookie'
 import { CLIENT_TOKEN_NAME } from '../../config'
@@ -8,6 +10,7 @@ import { useAuth } from './Auth'
 import { StyledButton } from '../Button'
 import styled from '@emotion/styled'
 import { theme } from '../../config'
+import { StyledListElement as ListElement, listElementCss } from '../../containers/MainHeader/components/ListElement'
 
 
 interface Props {
@@ -44,26 +47,26 @@ export const AuthStatus = () => {
 
   if (!authToken) {
     return (
-      <>
-        <p>You are not logged in. <Link to="/login">Sign in</Link> or <Link to="/register">register</Link>.</p>
-      </>
+      <ListElement to="/login" name="Connexion" />
     )
   }
 
   return (
-    <p>
-      <StyledUsername>
-        <>
-          {userInfo && userInfoDisplay}
-          &nbsp;
-          <StyledButton
-            label="Sign out"
-            callback={() => handleSubmit()}
-            isPushed={isPushed}
-            disabled={isPushed}
-          />
-        </>
-      </StyledUsername>
-    </p>
+    <li css={{ listElementCss }}>
+      <Link to="/">
+        <StyledUsername>
+          <>
+            {userInfo && userInfoDisplay}
+            &nbsp;
+            <StyledButton
+              label="Sign out"
+              callback={() => handleSubmit()}
+              isPushed={isPushed}
+              disabled={isPushed}
+            />
+          </>
+        </StyledUsername>
+      </Link>
+    </li>
   )
 }

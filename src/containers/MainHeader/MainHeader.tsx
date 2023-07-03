@@ -17,10 +17,6 @@ const MainHeader = ({ children, className }: Props) => {
 const StyledMainHeader = styled(MainHeader)`
   display: flex;
   width: 100%;
-  max-width: 1040px;
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: 40px;
 
   nav {
     display: flex;

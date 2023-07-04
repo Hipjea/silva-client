@@ -8,6 +8,10 @@ export const theme = {
     primary: '#f25d27',
     secondary: '#5d2c20'
   },
+  main: {
+    paddingX: '40px',
+    paddingY: '80px'
+  },
   navbar: {
     paddingX: '20px',
   },
@@ -82,7 +86,7 @@ export const body = css`
   }
 `
 
-export const main = css`
+export const main = ({ withPadding }: any) => css`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -90,6 +94,10 @@ export const main = css`
   max-width: 1040px;
   margin-left: auto;
   margin-right: auto;
+  ${withPadding === true &&
+  `
+    padding: ${theme.main.paddingY} 0
+  `}
 `
 
 export const button = css`

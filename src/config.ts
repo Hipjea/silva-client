@@ -8,6 +8,9 @@ export const theme = {
     primary: '#f25d27',
     secondary: '#5d2c20'
   },
+  navbar: {
+    paddingX: '20px',
+  },
   navlink: {
     paddingY: '10px',
     paddingX: '5px',

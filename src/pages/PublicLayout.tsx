@@ -6,6 +6,7 @@ import StyledMainHeader from '../containers/MainHeader/MainHeader'
 import { StyledListElement as ListElement } from '../containers/MainHeader/components/ListElement'
 import { ThemeProvider, Global } from '@emotion/react'
 import { body, reset, theme } from '../config'
+import { css } from '@emotion/react'
 
 
 export const PublicLayout = () => {
@@ -14,7 +15,12 @@ export const PublicLayout = () => {
       <Global styles={[reset, body]} />
       <StyledMainHeader>
         <>
-          <img src={logo} alt="Logo Silva Numerica" width="100" />
+          <img
+            src={logo}
+            alt="Logo Silva Numerica"
+            width="100"
+            css={css`padding-left: ${theme.navbar.paddingX}`}
+          />
           <nav>
             <ul>
               <ListElement to="/" name="Public Page" />

@@ -2,6 +2,7 @@
 import { css } from '@emotion/react'
 import Banner from '../containers/Banner'
 import { AuthStatus } from '../components/auth/AuthStatus'
+import { UpdateForm } from "../components/auth/UpdateForm"
 import { main } from '../config'
 
 
@@ -18,6 +19,8 @@ export const ProfilePage = () => {
 
       <section css={main({ withPadding: true })}>
         <AuthStatus />
+
+        <UpdateForm />
       </section>
     </>
   )

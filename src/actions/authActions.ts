@@ -7,8 +7,8 @@ import { signOut, signIn } from '../slices/authSlice'
 
 export interface User {
   user: {
-    email: string
-    password: string
+    email?: string
+    password?: string
     firstname?: string
     lastname?: string
   }
@@ -75,6 +75,31 @@ export const signupUser = createAsyncThunk(
       return await axios.post(`${API_URL}/signup`, data).then((res: AxiosResponse) => {
         const data = res.data as AxiosResponse
         return thunkAPI.dispatch(signIn(data.data))
+      })
+    } catch (error: any) {
+      return thunkAPI.rejectWithValue(error.response.data.status.message)
+    }
+  }
+)
+
+/**
+ * Update user action
+ */
+export const updateUser = createAsyncThunk(
+  'user/update',
+  async (data: User, thunkAPI) => {
+    try {
+      const authToken = Cookies.get(CLIENT_TOKEN_NAME)
+      const config = {
+        headers: {
+          Authorization: `Bearer ${authToken}`
+        }
+      }
+
+      return await axios.patch(`${API_URL}/current_user`, data, config).then((res: AxiosResponse) => {
+        const data = res.data as AxiosResponse
+        localStorage.removeItem("user")
+        localStorage.setItem("user", JSON.stringify(data.data))
       })
     } catch (error: any) {
       return thunkAPI.rejectWithValue(error.response.data.status.message)

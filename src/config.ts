@@ -86,6 +86,8 @@ export const body = css`
   }
 `
 
+export const relative = css`position: relative;`
+
 export const main = ({ withPadding }: any) => css`
   display: flex;
   flex-direction: column;
@@ -96,7 +98,7 @@ export const main = ({ withPadding }: any) => css`
   margin-right: auto;
   ${withPadding === true &&
   `
-    padding: ${theme.main.paddingY} 0
+    padding: ${theme.main.paddingY} 0;
   `}
 `
 
@@ -129,7 +131,15 @@ export const dropdownList = css`
   display: flex;
   flex-direction: column !important;
   list-style: none;
+  padding-right: 0 !important;
   li {
-    padding: ${theme.navlink.paddingX}
+    padding: 0;
+    width: 100%;
+    
+    a,
+    button {
+      padding: ${theme.navlink.paddingX};
+      width: 100%;
+    }
   }
 `

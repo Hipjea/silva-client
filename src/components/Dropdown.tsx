@@ -26,7 +26,7 @@ const Dropdown = ({ children, className, isShown, ...rest }: Props) => {
   return (
     <div
       css={styles({ isShown })}
-      className={className}
+      className={`dropdown-inner ${className}`}
       {...rest}
     >
       {children}

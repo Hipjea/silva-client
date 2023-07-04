@@ -2,12 +2,13 @@
 import { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import Cookies from 'js-cookie'
-import { CLIENT_TOKEN_NAME, theme, dropdownList } from '../../../config'
+import { CLIENT_TOKEN_NAME, theme, dropdownList, relative } from '../../../config'
 import type { RootState } from '../../../store'
 import { useSelector } from 'react-redux'
 import { useAuth } from '../../../components/auth/Auth'
 import { StyledButton } from '../../../components/Button'
 import { StyledDropdown } from '../../../components/Dropdown'
+import { css } from '@emotion/react'
 import styled from '@emotion/styled'
 import { StyledListElement as ListElement, listElementCss } from './ListElement'
 import userIcon from '../../../assets/images/icons/person-square.svg'
@@ -18,7 +19,7 @@ interface Props {
   className?: string
 }
 
-const Username = ({ children, className }: Props) => <span className={className}>{children}</span>
+const Username = ({ children, className }: Props) => <div className={className}>{children}</div>
 
 const StyledUsername = styled(Username)`
   color: ${theme.colors.secondary}
@@ -53,11 +54,12 @@ export const AuthStatusElement = () => {
   }
 
   return (
-    <li css={{ listElementCss }}>
+    <li css={[listElementCss, relative]}>
       <img
         src={userIcon}
         alt="Logo Silva Numerica"
         width="20"
+        css={css`padding-left: ${theme.navbar.paddingX}`}
         onClick={() => setIsShown(!isShown)}
       />
       <StyledDropdown isShown={isShown}>

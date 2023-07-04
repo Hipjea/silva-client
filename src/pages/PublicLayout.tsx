@@ -1,11 +1,12 @@
 /** @jsxImportSource @emotion/react */
-import { Outlet } from 'react-router-dom'
-import { AuthStatus } from '../components/auth/AuthStatus'
+import { Link, Outlet } from 'react-router-dom'
+import { AuthStatusElement } from '../containers/MainHeader/components/AuthStatusElement'
 import logo from '../assets/images/logo-silva-numerica.png'
 import StyledMainHeader from '../containers/MainHeader/MainHeader'
 import { StyledListElement as ListElement } from '../containers/MainHeader/components/ListElement'
 import { ThemeProvider, Global } from '@emotion/react'
 import { body, reset, theme } from '../config'
+import { css } from '@emotion/react'
 
 
 export const PublicLayout = () => {
@@ -14,14 +15,21 @@ export const PublicLayout = () => {
       <Global styles={[reset, body]} />
       <StyledMainHeader>
         <>
-          <img src={logo} alt="Logo Silva Numerica" width="100" />
+          <Link to="/">
+            <img
+              src={logo}
+              alt="Logo Silva Numerica"
+              width="100"
+              css={css`padding-left: ${theme.navbar.paddingX}`}
+            />
+          </Link>
           <nav>
             <ul>
               <ListElement to="/" name="Public Page" />
               <ListElement to="/protected" name="Protected Page" />
               <ListElement to="/admin" name="Admin Page" />
               <ListElement to="/scenarii" name="Scenarii Page" />
-              <AuthStatus />
+              <AuthStatusElement />
             </ul>
           </nav>
         </>

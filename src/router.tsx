@@ -3,7 +3,7 @@ import { RequireAuth, RequireAdmin } from './components/auth/Auth'
 import Scenarii from "./components/scenarii/Scenarii"
 import Scenario from "./components/scenarii/Scenario"
 import { Updated } from "./components/scenarii/EditForm"
-import { Layout, LoginPage, HomePage, PublicLayout, ProtectedPage, AdminPage, RegisterPage } from "./pages"
+import { Layout, LoginPage, HomePage, PublicLayout, ProfilePage, ProtectedPage, AdminPage, RegisterPage } from "./pages"
 
 
 const Router = () => {
@@ -12,6 +12,14 @@ const Router = () => {
       <Routes>
         <Route element={<PublicLayout />}>
           <Route path="/" element={<HomePage />} />
+          <Route
+            path="/profile"
+            element={
+              <RequireAuth>
+                <ProfilePage />
+              </RequireAuth>
+            }
+          />
         </Route>
 
         <Route element={<Layout />}>

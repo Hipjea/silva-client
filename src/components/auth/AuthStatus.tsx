@@ -1,21 +1,19 @@
 /** @jsxImportSource @emotion/react */
-import { useState } from 'react'
-import { css } from '@emotion/react'
-import { useNavigate, Link } from 'react-router-dom'
-import Cookies from 'js-cookie'
-import { CLIENT_TOKEN_NAME } from '../../config'
-import type { RootState } from '../../store'
-import { useSelector } from 'react-redux'
-import { useAuth } from './Auth'
-import { StyledButton } from '../Button'
+import UserInfos from './UserInfos'
 import styled from '@emotion/styled'
 import { theme } from '../../config'
-import { StyledListElement as ListElement, listElementCss } from '../../containers/MainHeader/components/ListElement'
+import { StyledListElement as ListElement } from '../../containers/MainHeader/components/ListElement'
 
 
 interface Props {
   children: JSX.Element
   className?: string
+}
+
+interface UserInfosProps {
+  firstname?: string
+  lastname?: string
+  email?: string
 }
 
 const Username = ({ children, className }: Props) => <span className={className}>{children}</span>
@@ -24,49 +22,19 @@ const StyledUsername = styled(Username)`
   color: ${theme.colors.secondary}
 `
 
-export const AuthStatus = () => {
-  const auth = useAuth()
-  const navigate = useNavigate()
-  const authToken = Cookies.get(CLIENT_TOKEN_NAME)
-  const authState = useSelector((state: RootState) => state.auth)
-  const [isPushed, setIsPushed] = useState<boolean>(false)
+export const AuthStatus = (): JSX.Element => {
+  const infos = UserInfos() as UserInfosProps
+  const userInfoDisplay = infos && `${infos.firstname} ${infos.lastname} (${infos.email})`
 
-  const userInfo = authState.email && authState.firstname && authState.lastname
-    ? authState
-    : localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user") as string) : null
-
-  const userInfoDisplay = userInfo && `${userInfo.firstname} ${userInfo.lastname} (${userInfo.email})`
-
-  const handleSubmit = () => {
-    setIsPushed(true)
-    auth.signout(() => {
-      navigate("/")
-      setIsPushed(false)
-    })
-  }
-
-  if (!authToken) {
+  if (!UserInfos) {
     return (
       <ListElement to="/login" name="Connexion" />
     )
   }
 
   return (
-    <li css={{ listElementCss }}>
-      <Link to="/">
-        <StyledUsername>
-          <>
-            {userInfo && userInfoDisplay}
-            &nbsp;
-            <StyledButton
-              label="Sign out"
-              callback={() => handleSubmit()}
-              isPushed={isPushed}
-              disabled={isPushed}
-            />
-          </>
-        </StyledUsername>
-      </Link>
-    </li>
+    <StyledUsername>
+      <>{userInfoDisplay}</>
+    </StyledUsername>
   )
 }

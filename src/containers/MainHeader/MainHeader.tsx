@@ -1,4 +1,5 @@
 import styled from '@emotion/styled'
+import { theme } from '../../config'
 
 
 interface Props {
@@ -30,6 +31,7 @@ const StyledMainHeader = styled(MainHeader)`
       justify-content: flex-end;
       list-style: none;
       padding-left: 0;
+      padding-right: ${theme.navbar.paddingX}
     }
   }
 `

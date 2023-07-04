@@ -10,7 +10,7 @@ import { StyledButton } from '../Button'
 import { StyledDropdown } from '../Dropdown'
 import { css } from '@emotion/react'
 import styled from '@emotion/styled'
-import { theme } from '../../config'
+import { theme, dropdownList } from '../../config'
 import { StyledListElement as ListElement, listElementCss } from '../../containers/MainHeader/components/ListElement'
 import userIcon from '../../assets/images/icons/person-square.svg'
 
@@ -60,22 +60,23 @@ export const AuthStatus = () => {
         <img
           src={userIcon}
           alt="Logo Silva Numerica"
-          width="25"
+          width="20"
           onClick={() => setIsShown(!isShown)}
         />
         <StyledDropdown isShown={isShown}>
-          <StyledUsername>
-            <>
-              {userInfo && userInfoDisplay}
-              &nbsp;
+          <ul css={dropdownList}>
+            <li>
+              <StyledUsername>{userInfo && userInfoDisplay}</StyledUsername>
+            </li>
+            <li>
               <StyledButton
                 label="Sign out"
                 callback={() => handleSubmit()}
                 isPushed={isPushed}
                 disabled={isPushed}
               />
-            </>
-          </StyledUsername>
+            </li>
+          </ul>
         </StyledDropdown>
       </Link>
     </li>

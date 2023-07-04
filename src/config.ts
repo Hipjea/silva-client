@@ -113,6 +113,15 @@ export const dropdown = css`
   border: 0;
   z-index: 1;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-  padding: 10px 15px;
+  padding: 10px;
   background-color: white;
+`
+
+export const dropdownList = css`
+  display: flex;
+  flex-direction: column !important;
+  list-style: none;
+  li {
+    padding: ${theme.navlink.paddingX}
+  }
 `

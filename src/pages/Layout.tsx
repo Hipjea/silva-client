@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { Outlet } from 'react-router-dom'
-import { AuthStatus } from '../components/auth/AuthStatus'
+import { AuthStatusElement } from '../containers/MainHeader/components/AuthStatusElement'
 import logo from '../assets/images/logo-silva-numerica.png'
 import StyledMainHeader from '../containers/MainHeader/MainHeader'
 import { StyledListElement as ListElement } from '../containers/MainHeader/components/ListElement'
@@ -21,7 +21,7 @@ export const Layout = () => {
               <ListElement to="/protected" name="Protected Page" />
               <ListElement to="/admin" name="Admin Page" />
               <ListElement to="/scenarii" name="Scenarii Page" />
-              <AuthStatus />
+              <AuthStatusElement />
             </ul>
           </nav>
         </>

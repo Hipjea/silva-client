@@ -1,18 +1,11 @@
 /** @jsxImportSource @emotion/react */
-import { useState } from 'react'
-import { useNavigate, Link } from 'react-router-dom'
 import Cookies from 'js-cookie'
 import { CLIENT_TOKEN_NAME } from '../../config'
 import type { RootState } from '../../store'
 import { useSelector } from 'react-redux'
-import { useAuth } from './Auth'
-import { StyledButton } from '../Button'
-import { StyledDropdown } from '../Dropdown'
-import { css } from '@emotion/react'
 import styled from '@emotion/styled'
-import { theme, dropdownList } from '../../config'
-import { StyledListElement as ListElement, listElementCss } from '../../containers/MainHeader/components/ListElement'
-import userIcon from '../../assets/images/icons/person-square.svg'
+import { theme } from '../../config'
+import { StyledListElement as ListElement } from '../../containers/MainHeader/components/ListElement'
 
 
 interface Props {
@@ -27,12 +20,8 @@ const StyledUsername = styled(Username)`
 `
 
 export const AuthStatus = () => {
-  const auth = useAuth()
-  const navigate = useNavigate()
   const authToken = Cookies.get(CLIENT_TOKEN_NAME)
   const authState = useSelector((state: RootState) => state.auth)
-  const [isPushed, setIsPushed] = useState<boolean>(false)
-  const [isShown, setIsShown] = useState<boolean>(false)
 
   const userInfo = authState.email && authState.firstname && authState.lastname
     ? authState
@@ -40,13 +29,6 @@ export const AuthStatus = () => {
 
   const userInfoDisplay = userInfo && `${userInfo.firstname} ${userInfo.lastname} (${userInfo.email})`
 
-  const handleSubmit = () => {
-    setIsPushed(true)
-    auth.signout(() => {
-      navigate("/")
-      setIsPushed(false)
-    })
-  }
 
   if (!authToken) {
     return (
@@ -55,32 +37,8 @@ export const AuthStatus = () => {
   }
 
   return (
-    <li css={{ listElementCss }}>
-      <img
-        src={userIcon}
-        alt="Logo Silva Numerica"
-        width="20"
-        onClick={() => setIsShown(!isShown)}
-      />
-      <StyledDropdown isShown={isShown}>
-        <ul css={dropdownList}>
-          <li>
-            <Link to="/profile">
-              <StyledUsername>
-                {userInfo && userInfoDisplay}
-              </StyledUsername>
-            </Link>
-          </li>
-          <li>
-            <StyledButton
-              label="Sign out"
-              callback={() => handleSubmit()}
-              isPushed={isPushed}
-              disabled={isPushed}
-            />
-          </li>
-        </ul>
-      </StyledDropdown>
-    </li>
+    <StyledUsername>
+      {userInfo && userInfoDisplay}
+    </StyledUsername>
   )
 }

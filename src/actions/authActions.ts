@@ -2,7 +2,7 @@ import { createAction, createAsyncThunk } from '@reduxjs/toolkit'
 import { API_URL, CLIENT_TOKEN_NAME } from '../config'
 import axios, { AxiosResponse, AxiosResponseHeaders } from 'axios'
 import Cookies from 'js-cookie'
-import { signOut, signIn } from '../slices/authSlice'
+import { signOut, signIn, updateData } from '../slices/authSlice'
 
 
 export interface User {
@@ -100,6 +100,7 @@ export const updateUser = createAsyncThunk(
         const data = res.data as AxiosResponse
         localStorage.removeItem("user")
         localStorage.setItem("user", JSON.stringify(data.data))
+        return thunkAPI.dispatch(updateData(data.data))
       })
     } catch (error: any) {
       return thunkAPI.rejectWithValue(error.response.data.status.message)

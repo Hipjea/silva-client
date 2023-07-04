@@ -39,6 +39,11 @@ export const authSlice = createSlice({
     },
     setEmail: (state, action: PayloadAction<string>) => {
       state.email = action.payload
+    },
+    updateData: (state, action: PayloadAction<UserProps>) => {
+      const { firstname, lastname } = action.payload;
+      state.firstname = firstname
+      state.lastname = lastname
     }
   },
   extraReducers: (builder) => {
@@ -58,6 +63,6 @@ export const authSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { signIn, signOut, setEmail } = authSlice.actions
+export const { signIn, signOut, setEmail, updateData } = authSlice.actions
 
 export default authSlice.reducer

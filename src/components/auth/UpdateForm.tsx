@@ -21,10 +21,8 @@ type FormInputs = {
 
 export const UpdateForm = () => {
   const authState = useSelector((state: RootState) => state.auth)
-  const navigate = useNavigate()
-  const [updateAttempt, setSignupAttempt] = useState<boolean>(false)
   const dispatch = useAppDispatch()
-  const userInfos = authState.email ? authState : UserInfos()
+  const [userInfos, setUserInfos] = useState<any>(authState.email ? authState : UserInfos())
 
   const {
     register,
@@ -39,12 +37,6 @@ export const UpdateForm = () => {
     }
   })
 
-  useEffect(() => {
-    if (updateAttempt) {
-      navigate("/profile", { replace: true })
-    }
-  }, [updateAttempt])
-
   const postForm = async (data: FormInputs) => {
     dispatch(updateUser(
       {
@@ -57,7 +49,7 @@ export const UpdateForm = () => {
       if (response.error) {
         setError('register', { type: 'custom', message: response.payload });
       } else {
-        setSignupAttempt(true)
+        setUserInfos(response.data)
       }
     })
   }

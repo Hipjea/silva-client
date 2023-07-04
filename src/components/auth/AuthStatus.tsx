@@ -56,29 +56,31 @@ export const AuthStatus = () => {
 
   return (
     <li css={{ listElementCss }}>
-      <Link to="/" css={css`position: relative;`}>
-        <img
-          src={userIcon}
-          alt="Logo Silva Numerica"
-          width="20"
-          onClick={() => setIsShown(!isShown)}
-        />
-        <StyledDropdown isShown={isShown}>
-          <ul css={dropdownList}>
-            <li>
-              <StyledUsername>{userInfo && userInfoDisplay}</StyledUsername>
-            </li>
-            <li>
-              <StyledButton
-                label="Sign out"
-                callback={() => handleSubmit()}
-                isPushed={isPushed}
-                disabled={isPushed}
-              />
-            </li>
-          </ul>
-        </StyledDropdown>
-      </Link>
+      <img
+        src={userIcon}
+        alt="Logo Silva Numerica"
+        width="20"
+        onClick={() => setIsShown(!isShown)}
+      />
+      <StyledDropdown isShown={isShown}>
+        <ul css={dropdownList}>
+          <li>
+            <Link to="/profile">
+              <StyledUsername>
+                {userInfo && userInfoDisplay}
+              </StyledUsername>
+            </Link>
+          </li>
+          <li>
+            <StyledButton
+              label="Sign out"
+              callback={() => handleSubmit()}
+              isPushed={isPushed}
+              disabled={isPushed}
+            />
+          </li>
+        </ul>
+      </StyledDropdown>
     </li>
   )
 }

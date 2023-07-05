@@ -34,13 +34,13 @@ export const AuthStatusElement = () => {
   const authState = useSelector((state: RootState) => state.auth)
   const [isPushed, setIsPushed] = useState<boolean>(false)
   const [isShown, setIsShown] = useState<boolean>(false)
-  const [userInfo, setUserInfo] = useState<string>("")
+  const [userInfo, setUserInfo] = useState<string | null>(null)
 
   useEffect(() => {
     const infos = authState.email && authState.firstname && authState.lastname
       ? authState
       : localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user") as string) : null
-    setUserInfo(`${infos.firstname} ${infos.lastname} (${infos.email})`)
+    setUserInfo(infos && `${infos.firstname} ${infos.lastname} (${infos.email})`)
   }, [userInfo])
 
   const handleSubmit = () => {
@@ -51,7 +51,7 @@ export const AuthStatusElement = () => {
     })
   }
 
-  if (!authToken) {
+  if (!authToken || !userInfo) {
     return (
       <ListElement to="/login" name={t('actions.signIn')} />
     )

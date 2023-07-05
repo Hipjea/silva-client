@@ -8,6 +8,7 @@ import type { RootState } from '../../store'
 import { useAppDispatch } from '../../hooks/redux-hooks'
 import { updateUser } from '../../actions/authActions'
 import { button } from '../../config'
+import { useTranslation } from 'react-i18next'
 
 
 type FormInputs = {
@@ -19,6 +20,7 @@ type FormInputs = {
 }
 
 export const UpdateForm = () => {
+  const { t } = useTranslation()
   const authState = useSelector((state: RootState) => state.auth)
   const dispatch = useAppDispatch()
   const [userInfos, setUserInfos] = useState<any>(authState.email ? authState : UserInfos())
@@ -56,19 +58,19 @@ export const UpdateForm = () => {
   return (
     <form onSubmit={handleSubmit((data) => postForm(data))}>
       <div>
-        <label>Firstname</label>
+        <label>{t('fields.firstname')}</label>
         <input {...register('firstname')} data-testid="firstname" />
-        {errors.firstname && <p>Please enter your firstname.</p>}
+        {errors.firstname && <p>{t('errors.pleaseEnterField', { field: t('fields.firstname') })}</p>}
       </div>
       <div>
-        <label>Lastname</label>
+        <label>{t('fields.lastname')}</label>
         <input {...register('lastname')} data-testid="lastname" />
-        {errors.lastname && <p>Please enter your lastname.</p>}
+        {errors.lastname && <p>{t('errors.pleaseEnterField', { field: t('fields.lastname') })}</p>}
       </div>
       {errors.register ?
         <p>
           {errors.register.message}
-          <button type="button" onClick={() => { clearErrors(); }}>Retenter</button>
+          <button type="button" onClick={() => { clearErrors(); }}>{t('actions.retry')}</button>
         </p>
         : <input type='submit' data-testid="submit" css={css`${button}`} />
       }

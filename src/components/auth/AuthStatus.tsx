@@ -3,6 +3,7 @@ import UserInfos from './UserInfos'
 import styled from '@emotion/styled'
 import { theme } from '../../config'
 import { StyledListElement as ListElement } from '../../containers/MainHeader/components/ListElement'
+import { useTranslation } from 'react-i18next'
 
 
 interface Props {
@@ -23,12 +24,13 @@ const StyledUsername = styled(Username)`
 `
 
 export const AuthStatus = (): JSX.Element => {
+  const { t } = useTranslation()
   const infos = UserInfos() as UserInfosProps
   const userInfoDisplay = infos && `${infos.firstname} ${infos.lastname} (${infos.email})`
 
   if (!UserInfos) {
     return (
-      <ListElement to="/login" name="Connexion" />
+      <ListElement to="/login" name={t('actions.signIn')} />
     )
   }
 

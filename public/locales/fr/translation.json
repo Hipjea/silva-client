@@ -1,0 +1,26 @@
+{
+  "actions": {
+    "retry": "Réessayer",
+    "signIn": "Connexion",
+    "signOut": "Se déconnecter",
+    "signUp": "S'enregistrer",
+    "submit": "Envoyer"
+  },
+  "fields": {
+    "email": "email",
+    "password": "mot de passe",
+    "firstname": "prénom",
+    "lastname": "nom"
+  },
+  "errors": {
+    "pleaseEnterField": "Veuillez saisir votre {{field}}"
+  },
+  "pages": {
+    "titles": {
+      "adminPage": "Administration",
+      "homePage": "Accueil",
+      "protectedPage": "Page protégée",
+      "scenariiPage": "Scenarios"
+    }
+  }
+}

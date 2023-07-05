@@ -6,6 +6,7 @@ import { useNavigate, useLocation, Link } from 'react-router-dom'
 import { useAppDispatch } from '../../hooks/redux-hooks'
 import { loginUser } from '../../actions/authActions'
 import { button } from '../../config'
+import { useTranslation } from 'react-i18next'
 
 
 type FormInputs = {
@@ -15,6 +16,7 @@ type FormInputs = {
 }
 
 export const LoginForm = () => {
+  const { t } = useTranslation()
   const navigate = useNavigate()
   const location = useLocation()
   const [loginAttempt, setLoginAttempt] = useState<boolean>(false)
@@ -30,7 +32,7 @@ export const LoginForm = () => {
 
   useEffect(() => {
     if (loginAttempt) {
-      navigate(location.state && location.state.from.pathname ? location.state.from.pathname : "/", { replace: true })
+      navigate(location.state && location.state.from.pathname ? location.state.from.pathname : '/', { replace: true })
     }
   }, [loginAttempt])
 
@@ -55,24 +57,24 @@ export const LoginForm = () => {
     <>
       <form onSubmit={handleSubmit((data) => postForm(data))}>
         <div>
-          <label>Email</label>
-          <input {...register('email', { required: true })} data-testid="email" />
-          {errors.email && <p>Please enter your email.</p>}
+          <label>{t('fields.email')}</label>
+          <input {...register('email', { required: true })} data-testid='email' />
+          {errors.email && <p>{t('errors.pleaseEnterField', { field: t('fields.email') })}</p>}
         </div>
         <div>
-          <label>Password</label>
-          <input type='password' {...register('password')} data-testid=" password" />
-          {errors.password && <p>Please enter your password.</p>}
+          <label>{t('fields.password')}</label>
+          <input type='password' {...register('password')} data-testid=' password' />
+          {errors.password && <p>{t('errors.pleaseEnterField', { field: t('fields.password') })}</p>}
         </div>
         {errors.login ?
           <p>
             {errors.login.message}
-            <button type="button" onClick={() => { clearErrors(); }}>Retenter</button>
+            <button type='button' onClick={() => { clearErrors(); }}>{t('actions.retry')}</button>
           </p>
-          : <input type='submit' data-testid="submit" css={css`${button}`} />
+          : <input type='submit' data-testid='submit' css={css`${button}`} />
         }
       </form>
-      <Link to="/register">S'enregistrer</Link>
+      <Link to='/register'>{t('actions.signUp')}</Link>
     </>
   )
 }

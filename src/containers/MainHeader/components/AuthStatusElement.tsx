@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import Cookies from 'js-cookie'
 import { CLIENT_TOKEN_NAME, theme, dropdownList, relative } from '../../../config'
@@ -34,12 +34,14 @@ export const AuthStatusElement = () => {
   const authState = useSelector((state: RootState) => state.auth)
   const [isPushed, setIsPushed] = useState<boolean>(false)
   const [isShown, setIsShown] = useState<boolean>(false)
+  const [userInfo, setUserInfo] = useState<string>("")
 
-  const userInfo = authState.email && authState.firstname && authState.lastname
-    ? authState
-    : localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user") as string) : null
-
-  const userInfoDisplay = userInfo && `${userInfo.firstname} ${userInfo.lastname} (${userInfo.email})`
+  useEffect(() => {
+    const infos = authState.email && authState.firstname && authState.lastname
+      ? authState
+      : localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user") as string) : null
+    setUserInfo(`${infos.firstname} ${infos.lastname} (${infos.email})`)
+  }, [userInfo])
 
   const handleSubmit = () => {
     setIsPushed(true)
@@ -69,7 +71,7 @@ export const AuthStatusElement = () => {
           <li>
             <Link to="/profile">
               <StyledUsername>
-                {userInfo && userInfoDisplay}
+                <>{userInfo}</>
               </StyledUsername>
             </Link>
           </li>

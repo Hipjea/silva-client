@@ -1,9 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useForm } from 'react-hook-form'
-import { useNavigate } from 'react-router-dom'
 import UserInfos from './UserInfos'
 import type { RootState } from '../../store'
 import { useAppDispatch } from '../../hooks/redux-hooks'

@@ -60,12 +60,12 @@ export const UpdateForm = () => {
       <div>
         <label>{t('fields.firstname')}</label>
         <input {...register('firstname')} data-testid="firstname" />
-        {errors.firstname && <p>{t('errors.pleaseEnterField', { field: t('fields.firstname') })}</p>}
+        {errors.firstname && <p>{t('errors.pleaseEnterField', { field: t('fields.firstname').toLowerCase() })}</p>}
       </div>
       <div>
         <label>{t('fields.lastname')}</label>
         <input {...register('lastname')} data-testid="lastname" />
-        {errors.lastname && <p>{t('errors.pleaseEnterField', { field: t('fields.lastname') })}</p>}
+        {errors.lastname && <p>{t('errors.pleaseEnterField', { field: t('fields.lastname').toLowerCase() })}</p>}
       </div>
       {errors.register ?
         <p>

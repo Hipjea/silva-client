@@ -62,22 +62,22 @@ export const SignupForm = () => {
       <div>
         <label>{t('fields.firstname')}</label>
         <input {...register('firstname')} value="jean" data-testid="firstname" />
-        {errors.firstname && <p>{t('errors.pleaseEnterField', { field: t('fields.firstname') })}</p>}
+        {errors.firstname && <p>{t('errors.pleaseEnterField', { field: t('fields.firstname').toLowerCase() })}</p>}
       </div>
       <div>
         <label>{t('fields.lastname')}</label>
         <input {...register('lastname')} value="jean" data-testid="lastname" />
-        {errors.lastname && <p>{t('errors.pleaseEnterField', { field: t('fields.lastname') })}</p>}
+        {errors.lastname && <p>{t('errors.pleaseEnterField', { field: t('fields.lastname').toLowerCase() })}</p>}
       </div>
       <div>
         <label>{t('fields.email')}</label>
         <input {...register('email', { required: true })} data-testid="email" />
-        {errors.email && <p>{t('errors.pleaseEnterField', { field: t('fields.email') })}</p>}
+        {errors.email && <p>{t('errors.pleaseEnterField', { field: t('fields.email').toLowerCase() })}</p>}
       </div>
       <div>
         <label>{t('fields.password')}</label>
         <input type='password' {...register('password')} value="password" data-testid="password" />
-        {errors.password && <p>{t('errors.pleaseEnterField', { field: t('fields.password') })}</p>}
+        {errors.password && <p>{t('errors.pleaseEnterField', { field: t('fields.password').toLowerCase() })}</p>}
       </div>
       {errors.register ?
         <p>

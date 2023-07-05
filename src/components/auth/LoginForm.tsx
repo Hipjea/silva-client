@@ -59,12 +59,12 @@ export const LoginForm = () => {
         <div>
           <label>{t('fields.email')}</label>
           <input {...register('email', { required: true })} data-testid='email' />
-          {errors.email && <p>{t('errors.pleaseEnterField', { field: t('fields.email') })}</p>}
+          {errors.email && <p>{t('errors.pleaseEnterField', { field: t('fields.email').toLowerCase() })}</p>}
         </div>
         <div>
           <label>{t('fields.password')}</label>
           <input type='password' {...register('password')} data-testid=' password' />
-          {errors.password && <p>{t('errors.pleaseEnterField', { field: t('fields.password') })}</p>}
+          {errors.password && <p>{t('errors.pleaseEnterField', { field: t('fields.password').toLowerCase() })}</p>}
         </div>
         {errors.login ?
           <p>

@@ -7,10 +7,10 @@
     "submit": "Envoyer"
   },
   "fields": {
-    "email": "email",
-    "password": "mot de passe",
-    "firstname": "prénom",
-    "lastname": "nom"
+    "email": "Email",
+    "password": "Mot de passe",
+    "firstname": "Prénom",
+    "lastname": "Nom"
   },
   "errors": {
     "pleaseEnterField": "Veuillez saisir votre {{field}}"

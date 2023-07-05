@@ -5,7 +5,7 @@ import reportWebVitals from './reportWebVitals'
 import { store } from './store'
 import { Provider } from 'react-redux'
 
-
+/*
 if (process.env.NODE_ENV == 'production') {
   const container = document.getElementById('root') as HTMLElement
   const root = hydrateRoot(
@@ -27,7 +27,15 @@ if (process.env.NODE_ENV == 'production') {
       </Provider>
     </React.StrictMode>
   )
-}
+}*/
+
+
+const root = createRoot(
+  document.getElementById('root') as HTMLElement
+)
+root.render(
+  <App />
+)
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

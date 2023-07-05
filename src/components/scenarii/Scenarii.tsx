@@ -1,11 +1,13 @@
-import React, { useEffect } from "react"
-import { API_URL } from "../../config"
-import axios from "axios"
-import { Link } from "react-router-dom"
-import type { IScenario } from "../../types"
-import { RootState } from "../../store"
+/** @jsxImportSource @emotion/react */
+import { useEffect } from 'react'
+import { API_URL } from '../../config'
+import axios from 'axios'
+import { Link } from 'react-router-dom'
+import type { IScenario } from '../../types'
+import { RootState } from '../../store'
 import { useDispatch, useSelector } from 'react-redux'
 import { populate } from '../../slices/scenariiSlice'
+import { resultRow } from '../../config'
 
 
 export default function Scenarii() {
@@ -22,23 +24,24 @@ export default function Scenarii() {
 
   return (
     <>
-      { scenarii.map(scenario => {
-          { return scenario
+      {scenarii.map(scenario => {
+        {
+          return scenario
             ? (
-                <div className="scenario" key={scenario.id}>
+              <div css={resultRow} key={scenario.id}>
+                <Link to={`${scenario.id}`}>
                   <div>
                     {scenario.attributes.name}
                   </div>
-                    <div>
+                  <div>
                     {scenario.attributes.author}
                   </div>
-                  <Link to={`${scenario.id}`}>Scenario Page</Link>
-                </div>
-              )
+                </Link>
+              </div>
+            )
             : null
-          }
-        })
-      }
+        }
+      })}
     </>
   )
 }

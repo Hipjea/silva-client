@@ -7,9 +7,12 @@ import { StyledListElement as ListElement } from '../containers/MainHeader/compo
 import { ThemeProvider, Global } from '@emotion/react'
 import { body, reset, theme } from '../config'
 import { css } from '@emotion/react'
+import { useTranslation } from 'react-i18next'
 
 
 export const PublicLayout = () => {
+  const { t } = useTranslation()
+
   return (
     <ThemeProvider theme={theme}>
       <Global styles={[reset, body]} />
@@ -25,10 +28,10 @@ export const PublicLayout = () => {
           </Link>
           <nav>
             <ul>
-              <ListElement to="/" name="Public Page" />
-              <ListElement to="/protected" name="Protected Page" />
-              <ListElement to="/admin" name="Admin Page" />
-              <ListElement to="/scenarii" name="Scenarii Page" />
+              <ListElement to="/" name={t('pages.titles.homePage')} />
+              <ListElement to="/protected" name={t('pages.titles.protectedPage')} />
+              <ListElement to="/admin" name={t('pages.titles.adminPage')} />
+              <ListElement to="/scenarii" name={t('pages.titles.scenariiPage')} />
               <AuthStatusElement />
             </ul>
           </nav>

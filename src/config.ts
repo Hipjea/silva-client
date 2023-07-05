@@ -19,6 +19,9 @@ export const theme = {
     paddingY: '10px',
     paddingX: '5px',
     activeHeight: '3px'
+  },
+  table: {
+    cellPadding: '10px'
   }
 }
 
@@ -140,6 +143,21 @@ export const dropdownList = css`
     button {
       padding: ${theme.navlink.paddingX};
       width: 100%;
+    }
+  }
+`
+
+export const resultRow = css`
+  display: flex;
+  flex-direction: row;
+  align-self: flex-start;
+
+  a {
+    display: flex;
+
+    div {
+      flex-direction: row;
+      padding: 5px;
     }
   }
 `

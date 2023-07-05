@@ -11,6 +11,7 @@ import { StyledDropdown } from '../../../components/Dropdown'
 import { css } from '@emotion/react'
 import styled from '@emotion/styled'
 import { StyledListElement as ListElement, listElementCss } from './ListElement'
+import { useTranslation } from 'react-i18next'
 import userIcon from '../../../assets/images/icons/person-square.svg'
 
 
@@ -26,6 +27,7 @@ const StyledUsername = styled(Username)`
 `
 
 export const AuthStatusElement = () => {
+  const { t } = useTranslation()
   const auth = useAuth()
   const navigate = useNavigate()
   const authToken = Cookies.get(CLIENT_TOKEN_NAME)
@@ -49,7 +51,7 @@ export const AuthStatusElement = () => {
 
   if (!authToken) {
     return (
-      <ListElement to="/login" name="Connexion" />
+      <ListElement to="/login" name={t('actions.signIn')} />
     )
   }
 
@@ -73,7 +75,7 @@ export const AuthStatusElement = () => {
           </li>
           <li>
             <StyledButton
-              label="Sign out"
+              label={t('actions.signOut')}
               callback={() => handleSubmit()}
               isPushed={isPushed}
               disabled={isPushed}

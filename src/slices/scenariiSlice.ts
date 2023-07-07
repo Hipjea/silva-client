@@ -1,8 +1,8 @@
-import { createSlice} from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 import type { IScenario, ScenariiState } from '../types'
 
-  
+
 const initialState: ScenariiState = {
     scenarii: []
 }
@@ -33,4 +33,3 @@ export const scenariiSlice = createSlice({
 export const { populate, update } = scenariiSlice.actions
 
 export default scenariiSlice.reducer
-  

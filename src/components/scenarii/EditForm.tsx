@@ -7,7 +7,7 @@ import { useForm } from "react-hook-form"
 import { updateScenario } from "../../actions/scenariiActions"
 
 
-export const Updated = () => {
+export const EditForm = () => {
   let location = useLocation()
   let navigate = useNavigate()
   const dispatch = useAppDispatch()

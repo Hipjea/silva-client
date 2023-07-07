@@ -1,4 +1,5 @@
 export * from './AdminPage'
+export * from './ConfirmationPage'
 export * from './HomePage'
 export * from './Layout'
 export * from './LoginPage'

@@ -1,5 +1,8 @@
 {
   "actions": {
+    "confirm": "Confirm",
+    "confirmation": "Confirmation",
+    "clickOnTheLinkToConfirm": "Click on the following link to confirm your account : ",
     "retry": "Retry",
     "signIn": "Sign in",
     "signOut": "Sign out",
@@ -13,6 +16,7 @@
     "lastname": "Lastname"
   },
   "errors": {
+    "cannotConfirmAccount": "Cannot confirm the account",
     "pleaseEnterField": "Please enter your {{field}}"
   },
   "pages": {

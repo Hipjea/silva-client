@@ -1,7 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
-import type { IScenario, ScenariiState } from '../types'
+import type { IScenario } from '../types'
 
+
+export interface ScenariiState {
+    scenarii: Array<IScenario>
+}
 
 const initialState: ScenariiState = {
     scenarii: []

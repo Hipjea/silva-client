@@ -1,5 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit'
 import authReducer from './slices/authSlice'
+import cardsReducer from './slices/cardsSlice'
 import scenariiSlice from './slices/scenariiSlice'
 import logger from 'redux-logger'
 
@@ -7,6 +8,7 @@ import logger from 'redux-logger'
 export const store = configureStore({
   reducer: {
     auth: authReducer,
+    cards: cardsReducer,
     scenarii: scenariiSlice
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),

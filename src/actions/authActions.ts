@@ -1,5 +1,6 @@
 import { createAction, createAsyncThunk } from '@reduxjs/toolkit'
 import { API_URL, CLIENT_TOKEN_NAME } from '../config'
+import { configHeaders } from '../cookies'
 import axios, { AxiosResponse, AxiosResponseHeaders } from 'axios'
 import Cookies from 'js-cookie'
 import { signOut, signIn, updateData, confirm } from '../slices/authSlice'
@@ -89,14 +90,7 @@ export const updateUser = createAsyncThunk(
   'user/update',
   async (data: User, thunkAPI) => {
     try {
-      const authToken = Cookies.get(CLIENT_TOKEN_NAME)
-      const config = {
-        headers: {
-          Authorization: `Bearer ${authToken}`
-        }
-      }
-
-      return await axios.patch(`${API_URL}/current_user`, data, config).then((res: AxiosResponse) => {
+      return await axios.patch(`${API_URL}/current_user`, data, configHeaders).then((res: AxiosResponse) => {
         const data = res.data as AxiosResponse
         localStorage.removeItem("user")
         localStorage.setItem("user", JSON.stringify(data.data))

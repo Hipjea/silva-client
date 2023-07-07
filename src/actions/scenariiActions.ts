@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import { API_URL, CLIENT_TOKEN_NAME } from '../config'
+import { API_URL } from '../config'
+import { configHeaders } from '../cookies'
 import axios, { AxiosResponse } from 'axios'
-import Cookies from 'js-cookie'
 import type { Scenario } from '../types'
 import { populate, update } from '../slices/scenariiSlice'
 
@@ -18,14 +18,7 @@ export const getScenarii = createAsyncThunk(
   'scenarii/fetchAll',
   async (_: null, thunkAPI) => {
     try {
-      const authToken = Cookies.get(CLIENT_TOKEN_NAME)
-      const config = {
-        headers: {
-          Authorization: `Bearer ${authToken}`
-        }
-      }
-
-      return await axios.get(`${API_URL}/api/v1/scenarii`, config).then((res: AxiosResponse) => {
+      return await axios.get(`${API_URL}/api/v1/scenarii`, configHeaders).then((res: AxiosResponse) => {
         return thunkAPI.dispatch(populate(res.data))
       })
     } catch (error: any) {
@@ -41,14 +34,7 @@ export const getScenario = createAsyncThunk(
   'scenarii/fetch',
   async (id: string, thunkAPI) => {
     try {
-      const authToken = Cookies.get(CLIENT_TOKEN_NAME)
-      const config = {
-        headers: {
-          Authorization: `Bearer ${authToken}`
-        }
-      }
-
-      return await axios.get(`${API_URL}/api/v1/scenarii/${id}`, config).then((res: AxiosResponse) => {
+      return await axios.get(`${API_URL}/api/v1/scenarii/${id}`, configHeaders).then((res: AxiosResponse) => {
         return res.data
       })
     } catch (error: any) {
@@ -64,15 +50,7 @@ export const updateScenario = createAsyncThunk(
   'scenarii/update',
   async (data: UpdateProps, thunkAPI) => {
     try {
-      console.log("data => ", data.data)
-      const authToken = Cookies.get(CLIENT_TOKEN_NAME)
-      const config = {
-        headers: {
-          Authorization: `Bearer ${authToken}`
-        }
-      }
-
-      return await axios.patch(`${API_URL}/api/v1/scenarii/${data.id}`, { scenario: data.data }, config)
+      return await axios.patch(`${API_URL}/api/v1/scenarii/${data.id}`, { scenario: data.data }, configHeaders)
         .then((_: AxiosResponse) => {
           return thunkAPI.dispatch(update(data))
         })

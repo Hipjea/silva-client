@@ -1,8 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import { useEffect, useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
-import Cookies from 'js-cookie'
-import { CLIENT_TOKEN_NAME, theme, dropdownList, relative } from '../../../config'
+import { authToken } from '../../../cookies'
+import { theme, dropdownList, relative } from '../../../config'
 import type { RootState } from '../../../store'
 import { useSelector } from 'react-redux'
 import { useAuth } from '../../../components/auth/Auth'
@@ -30,7 +30,6 @@ export const AuthStatusElement = () => {
   const { t } = useTranslation()
   const auth = useAuth()
   const navigate = useNavigate()
-  const authToken = Cookies.get(CLIENT_TOKEN_NAME)
   const authState = useSelector((state: RootState) => state.auth)
   const [isPushed, setIsPushed] = useState<boolean>(false)
   const [isShown, setIsShown] = useState<boolean>(false)
@@ -40,11 +39,13 @@ export const AuthStatusElement = () => {
     const infos = authState.email && authState.firstname && authState.lastname
       ? authState
       : localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user") as string) : null
+
     setUserInfo(infos && `${infos.firstname} ${infos.lastname} (${infos.email})`)
-  }, [userInfo])
+  }, [authState])
 
   const handleSubmit = () => {
     setIsPushed(true)
+
     auth.signout(() => {
       navigate("/")
       setIsPushed(false)

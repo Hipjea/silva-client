@@ -19,7 +19,7 @@ export interface User {
  * User login action
  */
 export const loginUser = createAsyncThunk(
-  'user/login',
+  'auth/login',
   async (data: User, thunkAPI) => {
     try {
       return await axios.post(`${API_URL}/login`, data).then((res: AxiosResponse) => {
@@ -45,7 +45,7 @@ export const loginUser = createAsyncThunk(
  * User logout action
  */
 export const logoutUser = createAsyncThunk(
-  'user/logout',
+  'auth/logout',
   async (_: () => void, thunkAPI) => {
     Cookies.remove(CLIENT_TOKEN_NAME)
     localStorage.removeItem("user")
@@ -56,7 +56,7 @@ export const logoutUser = createAsyncThunk(
  * Bounce the user to the callback location
  */
 export const bounceUser = createAction(
-  'user/redirect',
+  'auth/redirect',
   (callback: () => void) => {
     callback()
 
@@ -70,7 +70,7 @@ export const bounceUser = createAction(
  * User signup action
  */
 export const signupUser = createAsyncThunk(
-  'user/signup',
+  'auth/signup',
   async (data: User, thunkAPI) => {
     try {
       return await axios.post(`${API_URL}/signup`, data).then((res: AxiosResponse) => {
@@ -87,7 +87,7 @@ export const signupUser = createAsyncThunk(
  * Update user action
  */
 export const updateUser = createAsyncThunk(
-  'user/update',
+  'auth/update',
   async (data: User, thunkAPI) => {
     try {
       return await axios.patch(`${API_URL}/current_user`, data, configHeaders).then((res: AxiosResponse) => {
@@ -102,12 +102,11 @@ export const updateUser = createAsyncThunk(
   }
 )
 
-
 /**
  * Confirm user action
  */
 export const confirmUser = createAsyncThunk(
-  'user/confirm',
+  'auth/confirm',
   async (confirmationToken: string, thunkAPI) => {
     try {
       return await axios.get(`${API_URL}/confirmation?confirmation_token=${confirmationToken}`).then(_ => {

@@ -2,8 +2,19 @@ import { BrowserRouter, Routes, Route } from "react-router-dom"
 import { RequireAuth, RequireAdmin } from './components/auth/Auth'
 import Scenarii from "./components/scenarii/Scenarii"
 import Scenario from "./components/scenarii/Scenario"
-import { Updated } from "./components/scenarii/EditForm"
-import { Layout, LoginPage, HomePage, PublicLayout, ProfilePage, ProtectedPage, AdminPage, RegisterPage } from "./pages"
+import { EditForm } from "./components/scenarii/EditForm"
+import {
+  Layout,
+  LoginPage,
+  HomePage,
+  PublicLayout,
+  ProfilePage,
+  ProtectedPage,
+  AdminPage,
+  RegisterPage,
+  ConfirmationPage,
+  AdminLayout
+} from "./pages"
 
 
 const Router = () => {
@@ -25,10 +36,11 @@ const Router = () => {
         <Route element={<Layout />}>
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
-          <Route path="/scenarii">
+          <Route path="/confirmation" element={<ConfirmationPage />} />
+          <Route path="/scenarii" element={<AdminLayout />}>
             <Route index={true} element={<Scenarii />} />
             <Route path=":id" element={<Scenario />} />
-            <Route path=":id/edit" element={<Updated />} />
+            <Route path=":id/edit" element={<EditForm />} />
           </Route>
           <Route
             path="/protected"

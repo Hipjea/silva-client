@@ -2,7 +2,7 @@ import { createAction, createAsyncThunk } from '@reduxjs/toolkit'
 import { API_URL, CLIENT_TOKEN_NAME } from '../config'
 import axios, { AxiosResponse, AxiosResponseHeaders } from 'axios'
 import Cookies from 'js-cookie'
-import { signOut, signIn, updateData } from '../slices/authSlice'
+import { signOut, signIn, updateData, confirm } from '../slices/authSlice'
 
 
 export interface User {
@@ -101,6 +101,23 @@ export const updateUser = createAsyncThunk(
         localStorage.removeItem("user")
         localStorage.setItem("user", JSON.stringify(data.data))
         return thunkAPI.dispatch(updateData(data.data))
+      })
+    } catch (error: any) {
+      return thunkAPI.rejectWithValue(error.response.data.status.message)
+    }
+  }
+)
+
+
+/**
+ * Confirm user action
+ */
+export const confirmUser = createAsyncThunk(
+  'user/confirm',
+  async (confirmationToken: string, thunkAPI) => {
+    try {
+      return await axios.get(`${API_URL}/confirmation?confirmation_token=${confirmationToken}`).then(_ => {
+        return thunkAPI.dispatch(confirm(true))
       })
     } catch (error: any) {
       return thunkAPI.rejectWithValue(error.response.data.status.message)

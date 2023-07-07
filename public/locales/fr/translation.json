@@ -1,5 +1,8 @@
 {
   "actions": {
+    "confirm": "Confirmer",
+    "confirmation": "Confirmation",
+    "clickOnTheLinkToConfirm": "Cliquez sur le lien suivant pour confirmer votre compte : ",
     "retry": "Réessayer",
     "signIn": "Connexion",
     "signOut": "Se déconnecter",
@@ -13,6 +16,7 @@
     "lastname": "Nom"
   },
   "errors": {
+    "cannotConfirmAccount": "Impossible de confirmer le compte",
     "pleaseEnterField": "Veuillez saisir votre {{field}}"
   },
   "pages": {

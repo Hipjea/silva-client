@@ -8,10 +8,20 @@ export const theme = {
     primary: '#f25d27',
     secondary: '#5d2c20'
   },
+  main: {
+    paddingX: '40px',
+    paddingY: '80px'
+  },
+  navbar: {
+    paddingX: '20px',
+  },
   navlink: {
     paddingY: '10px',
     paddingX: '5px',
     activeHeight: '3px'
+  },
+  table: {
+    cellPadding: '10px'
   }
 }
 
@@ -79,7 +89,9 @@ export const body = css`
   }
 `
 
-export const main = css`
+export const relative = css`position: relative;`
+
+export const main = ({ withPadding }: any) => css`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -87,6 +99,10 @@ export const main = css`
   max-width: 1040px;
   margin-left: auto;
   margin-right: auto;
+  ${withPadding === true &&
+  `
+    padding: ${theme.main.paddingY} 0;
+  `}
 `
 
 export const button = css`
@@ -102,4 +118,46 @@ export const buttonLink = css`
   color: ${theme.colors.primary};
   padding: 0;
   border: none;
+`
+
+export const dropdown = css`
+  position: absolute;
+  right: 0;
+  border: 0;
+  z-index: 1;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  padding: 10px;
+  background-color: white;
+`
+
+export const dropdownList = css`
+  display: flex;
+  flex-direction: column !important;
+  list-style: none;
+  padding-right: 0 !important;
+  li {
+    padding: 0;
+    width: 100%;
+    
+    a,
+    button {
+      padding: ${theme.navlink.paddingX};
+      width: 100%;
+    }
+  }
+`
+
+export const resultRow = css`
+  display: flex;
+  flex-direction: row;
+  align-self: flex-start;
+
+  a {
+    display: flex;
+
+    div {
+      flex-direction: row;
+      padding: 5px;
+    }
+  }
 `

@@ -1,5 +1,12 @@
-export interface ScenariiState {
-  scenarii: Array<IScenario>
+export interface AuthContextType {
+  user: User
+}
+
+export interface UserProps {
+  email: string
+  password: string
+  firstname: string
+  lastname: string
 }
 
 export interface Scenarii {
@@ -32,13 +39,8 @@ export interface IScenario {
   }
 }
 
-export interface AuthContextType {
-  user: User
-}
-
-export interface UserProps {
-  email: string
-  password: string
-  firstname: string
-  lastname: string
+export interface Card {
+  id: number
+  attributes: {
+  }
 }

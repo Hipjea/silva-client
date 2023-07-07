@@ -15,6 +15,9 @@
     "axios": "^1.4.0",
     "core-js": "^3.31.0",
     "express": "^4.18.2",
+    "i18next": "^23.2.7",
+    "i18next-browser-languagedetector": "^7.1.0",
+    "i18next-http-backend": "^2.2.1",
     "jest-dom": "^4.0.0",
     "js-cookie": "^3.0.5",
     "nanoid": "^4.0.2",
@@ -22,6 +25,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.44.3",
+    "react-i18next": "^13.0.1",
     "react-redux": "^8.0.7",
     "react-router-dom": "^6.12.1",
     "react-scripts": "^5.0.1",
@@ -33,7 +37,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --transformIgnorePatterns 'node_modules/(?!axios)/'",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "build:server": "webpack --mode=production --node-env=production --config ./server/webpack.config.js"
   },
   "eslintConfig": {
     "extends": [
@@ -55,14 +60,17 @@
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "@babel/preset-env": "^7.22.6",
     "@babel/preset-react": "^7.22.5",
     "@emotion/babel-plugin": "^11.11.0",
-    "@types/node": "^20.3.1",
+    "@types/node": "^20.3.3",
     "@types/react": "^18.2.14",
     "@types/react-dom": "^18.2.6",
     "babel-plugin-named-exports-order": "^0.0.2",
+    "bootstrap-icons": "^1.10.5",
     "msw": "^1.2.2",
     "prop-types": "^15.8.1",
-    "webpack": "^5.88.0"
+    "webpack": "^5.88.0",
+    "webpack-cli": "^5.1.4"
   }
 }

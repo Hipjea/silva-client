@@ -1,44 +1,42 @@
-import React, { useEffect } from "react"
-import { API_URL } from "../../config"
-import axios from "axios"
-import { Link } from "react-router-dom"
-import type { IScenario } from "../../types"
-import { RootState } from "../../store"
-import { useDispatch, useSelector } from 'react-redux'
-import { populate } from '../../slices/scenariiSlice'
+/** @jsxImportSource @emotion/react */
+import { useEffect } from 'react'
+import { Link } from 'react-router-dom'
+import type { IScenario } from '../../types'
+import { RootState } from '../../store'
+import { useAppDispatch } from '../../hooks/redux-hooks'
+import { useSelector } from 'react-redux'
+import { getScenarii } from '../../actions/scenariiActions'
+import { resultRow } from '../../config'
 
 
 export default function Scenarii() {
-  const config = `${API_URL}/api/v1/scenarii`
   const scenarii = useSelector<RootState, Array<IScenario>>(state => state.scenarii.scenarii)
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
 
   useEffect(() => {
-    axios.get(config)
-      .then((response) => {
-        dispatch(populate(response.data))
-      })
+    dispatch(getScenarii(null))
   }, [])
 
   return (
     <>
-      { scenarii.map(scenario => {
-          { return scenario
+      {scenarii.map(scenario => {
+        {
+          return scenario
             ? (
-                <div className="scenario" key={scenario.id}>
+              <div css={resultRow} key={scenario.id}>
+                <Link to={`${scenario.id}`}>
                   <div>
                     {scenario.attributes.name}
                   </div>
-                    <div>
+                  <div>
                     {scenario.attributes.author}
                   </div>
-                  <Link to={`${scenario.id}`}>Scenario Page</Link>
-                </div>
-              )
+                </Link>
+              </div>
+            )
             : null
-          }
-        })
-      }
+        }
+      })}
     </>
   )
 }

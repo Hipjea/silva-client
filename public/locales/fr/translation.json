@@ -1,0 +1,30 @@
+{
+  "actions": {
+    "confirm": "Confirmer",
+    "confirmation": "Confirmation",
+    "clickOnTheLinkToConfirm": "Cliquez sur le lien suivant pour confirmer votre compte : ",
+    "retry": "Réessayer",
+    "signIn": "Connexion",
+    "signOut": "Se déconnecter",
+    "signUp": "S'enregistrer",
+    "submit": "Envoyer"
+  },
+  "fields": {
+    "email": "Email",
+    "password": "Mot de passe",
+    "firstname": "Prénom",
+    "lastname": "Nom"
+  },
+  "errors": {
+    "cannotConfirmAccount": "Impossible de confirmer le compte",
+    "pleaseEnterField": "Veuillez saisir votre {{field}}"
+  },
+  "pages": {
+    "titles": {
+      "adminPage": "Administration",
+      "homePage": "Accueil",
+      "protectedPage": "Page protégée",
+      "scenariiPage": "Scenarios"
+    }
+  }
+}

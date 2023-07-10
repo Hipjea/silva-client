@@ -9,6 +9,7 @@ export interface AuthState {
   email: null | string
   firstname: null | string
   lastname: null | string
+  menu: null | {}
 }
 
 const initialState: AuthState = {
@@ -17,6 +18,7 @@ const initialState: AuthState = {
   email: null,
   firstname: null,
   lastname: null,
+  menu: null,
 }
 
 /**
@@ -27,11 +29,12 @@ export const authSlice = createSlice({
   initialState,
   reducers: {
     signIn: (state, action: PayloadAction<UserProps>) => {
-      const { email, firstname, lastname } = action.payload
+      const { email, firstname, lastname, menu } = action.payload
       state.isAuthenticated = true
       state.email = email
       state.firstname = firstname
       state.lastname = lastname
+      state.menu = menu
     },
     signOut: (state) => {
       state.isAuthenticated = false

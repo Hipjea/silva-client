@@ -15,7 +15,7 @@ const initialState: CardState = {
  * Cards slice containing the reducers
  */
 export const cardsSlice = createSlice({
-  name: 'scenarii',
+  name: 'cards',
   initialState,
   reducers: {
     fetchAll: (state, action: PayloadAction<Array<Card>>) => {

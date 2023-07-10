@@ -1,18 +1,33 @@
 /** @jsxImportSource @emotion/react */
+import { useEffect, useState, useMemo } from 'react'
 import { Link, Outlet } from 'react-router-dom'
 import { AuthStatusElement } from '../../containers/MainHeader/components/AuthStatusElement'
 import logo from '../../assets/images/logo-silva-numerica.png'
 import StyledMainHeader from '../../containers/MainHeader/MainHeader'
 import { StyledListElement as ListElement } from '../../containers/MainHeader/components/ListElement'
-import { ThemeProvider, Global } from '@emotion/react'
+import { css, ThemeProvider, Global } from '@emotion/react'
 import { body, main, reset, theme } from '../../config'
-import { css } from '@emotion/react'
 import { useTranslation } from 'react-i18next'
+import { useSelector } from 'react-redux'
+import type { RootState } from '../../store'
 
 
 export const Layout = () => {
   const { t } = useTranslation()
-
+  const authState = useSelector((state: RootState) => state.auth)
+  const [userInfo, setUserInfo] = useState<string | null>(null)
+  /*
+    useEffect(() => {
+      const infos = authState.email && authState.firstname && authState.lastname
+        ? authState
+        : localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user") as string) : null
+  
+      setUserInfo(infos && `${infos.firstname} ${infos.lastname} (${infos.email})`)
+    }, [authState])
+  
+    console.log("authState => ", authState)
+    console.log("userInfo => ", userInfo)
+  */
   return (
     <ThemeProvider theme={theme}>
       <Global styles={[reset, body]} />

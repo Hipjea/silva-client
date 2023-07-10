@@ -7,6 +7,7 @@ export interface UserProps {
   password: string
   firstname: string
   lastname: string
+  menu: {}
 }
 
 export interface Scenarii {

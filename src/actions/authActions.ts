@@ -1,5 +1,6 @@
 import { createAction, createAsyncThunk } from '@reduxjs/toolkit'
 import { API_URL, CLIENT_TOKEN_NAME } from '../config'
+import { configHeaders } from '../cookies'
 import axios, { AxiosResponse, AxiosResponseHeaders } from 'axios'
 import Cookies from 'js-cookie'
 import { signOut, signIn, updateData, confirm } from '../slices/authSlice'
@@ -11,6 +12,7 @@ export interface User {
     password?: string
     firstname?: string
     lastname?: string
+    menu?: {}
   }
 }
 
@@ -18,7 +20,7 @@ export interface User {
  * User login action
  */
 export const loginUser = createAsyncThunk(
-  'user/login',
+  'auth/login',
   async (data: User, thunkAPI) => {
     try {
       return await axios.post(`${API_URL}/login`, data).then((res: AxiosResponse) => {
@@ -44,7 +46,7 @@ export const loginUser = createAsyncThunk(
  * User logout action
  */
 export const logoutUser = createAsyncThunk(
-  'user/logout',
+  'auth/logout',
   async (_: () => void, thunkAPI) => {
     Cookies.remove(CLIENT_TOKEN_NAME)
     localStorage.removeItem("user")
@@ -55,7 +57,7 @@ export const logoutUser = createAsyncThunk(
  * Bounce the user to the callback location
  */
 export const bounceUser = createAction(
-  'user/redirect',
+  'auth/redirect',
   (callback: () => void) => {
     callback()
 
@@ -69,7 +71,7 @@ export const bounceUser = createAction(
  * User signup action
  */
 export const signupUser = createAsyncThunk(
-  'user/signup',
+  'auth/signup',
   async (data: User, thunkAPI) => {
     try {
       return await axios.post(`${API_URL}/signup`, data).then((res: AxiosResponse) => {
@@ -86,17 +88,10 @@ export const signupUser = createAsyncThunk(
  * Update user action
  */
 export const updateUser = createAsyncThunk(
-  'user/update',
+  'auth/update',
   async (data: User, thunkAPI) => {
     try {
-      const authToken = Cookies.get(CLIENT_TOKEN_NAME)
-      const config = {
-        headers: {
-          Authorization: `Bearer ${authToken}`
-        }
-      }
-
-      return await axios.patch(`${API_URL}/current_user`, data, config).then((res: AxiosResponse) => {
+      return await axios.patch(`${API_URL}/current_user`, data, configHeaders).then((res: AxiosResponse) => {
         const data = res.data as AxiosResponse
         localStorage.removeItem("user")
         localStorage.setItem("user", JSON.stringify(data.data))
@@ -108,12 +103,11 @@ export const updateUser = createAsyncThunk(
   }
 )
 
-
 /**
  * Confirm user action
  */
 export const confirmUser = createAsyncThunk(
-  'user/confirm',
+  'auth/confirm',
   async (confirmationToken: string, thunkAPI) => {
     try {
       return await axios.get(`${API_URL}/confirmation?confirmation_token=${confirmationToken}`).then(_ => {

@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import { API_URL, CLIENT_TOKEN_NAME } from '../config'
+import { API_URL } from '../config'
+import { configHeaders } from '../cookies'
 import axios, { AxiosResponse } from 'axios'
-import Cookies from 'js-cookie'
 import { fetchAll } from '../slices/cardsSlice'
 
 
@@ -12,14 +12,7 @@ export const getCards = createAsyncThunk(
   'cards/fetchAll',
   async (_: null, thunkAPI) => {
     try {
-      const authToken = Cookies.get(CLIENT_TOKEN_NAME)
-      const config = {
-        headers: {
-          Authorization: `Bearer ${authToken}`
-        }
-      }
-
-      return await axios.get(`${API_URL}/api/v1/cards`, config).then((res: AxiosResponse) => {
+      return await axios.get(`${API_URL}/api/v1/cards`, configHeaders).then((res: AxiosResponse) => {
         return thunkAPI.dispatch(fetchAll(res.data))
       })
     } catch (error: any) {
@@ -35,14 +28,7 @@ export const getCard = createAsyncThunk(
   'cards/fetch',
   async (id: string, thunkAPI) => {
     try {
-      const authToken = Cookies.get(CLIENT_TOKEN_NAME)
-      const config = {
-        headers: {
-          Authorization: `Bearer ${authToken}`
-        }
-      }
-
-      return await axios.get(`${API_URL}/api/v1/cards/${id}`, config).then((res: AxiosResponse) => {
+      return await axios.get(`${API_URL}/api/v1/cards/${id}`, configHeaders).then((res: AxiosResponse) => {
         return res.data
       })
     } catch (error: any) {

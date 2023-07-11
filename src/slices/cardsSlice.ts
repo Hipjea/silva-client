@@ -22,11 +22,11 @@ export const cardsSlice = createSlice({
       state.cards = action.payload
     },
     update: (state, action) => {
-      const { id, name } = action.payload
-      const existingCard = state.cards.find(card => card.id == id)
+      const { id, attributes } = action.payload
+      const existingCard = state.cards.find(card => card.id === id)
 
       if (existingCard) {
-        existingCard.attributes.name = name
+        existingCard.attributes = attributes
       }
     }
   }

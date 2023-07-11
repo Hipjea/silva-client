@@ -5,6 +5,7 @@ import Scenario from "./components/scenarii/Scenario"
 import Cards from "./components/cards/Cards"
 import Card from "./components/cards/Card"
 import { ScenarioEditForm } from "./components/scenarii/EditForm"
+import { CardEditForm } from "./components/cards/EditForm"
 import {
   Layout,
   LoginPage,
@@ -17,7 +18,6 @@ import {
   ConfirmationPage,
   AdminLayout
 } from "./pages"
-import { CardEditForm } from "./components/cards/EditForm"
 
 
 const Router = () => {

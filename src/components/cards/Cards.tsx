@@ -19,22 +19,20 @@ export default function Cards() {
   return (
     <>
       {cards.map(card => {
-        {
-          return card
-            ? (
-              <div css={resultRow} key={card.id}>
-                <Link to={`${card.id}`}>
-                  <div>
-                    {card.attributes.typeable_type}
-                  </div>
-                  <div>
-                    {card.attributes.name}
-                  </div>
-                </Link>
-              </div>
-            )
-            : null
-        }
+        return card
+          ? (
+            <div css={resultRow} key={card.id}>
+              <Link to={`${card.id}`}>
+                <div>
+                  {card.attributes.typeable_type}
+                </div>
+                <div>
+                  {card.attributes.name}
+                </div>
+              </Link>
+            </div>
+          )
+          : null
       })}
     </>
   )

@@ -23,7 +23,7 @@ export const scenariiSlice = createSlice({
         },
         update: (state, action) => {
             const { id, name, author } = action.payload
-            const existingScenario = state.scenarii.find(scenario => scenario.id == id)
+            const existingScenario = state.scenarii.find(scenario => scenario.id === id)
 
             if (existingScenario) {
                 existingScenario.attributes.name = name

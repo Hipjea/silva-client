@@ -13,7 +13,7 @@ export const CardEditForm = () => {
   const onSubmit = (data: Card) => updateForm(data)
 
   const updateForm = async (data: any) => {
-    const promise = dispatch(updateCard({ id: card.id, data: { ...data } }))
+    const promise = dispatch(updateCard({ id: card.id, data: { id: card.id, ...data } }))
     promise.then((_: any) => navigate(`/cards/${card.id}`, { replace: true }))
   }
 
@@ -23,6 +23,7 @@ export const CardEditForm = () => {
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
           <input type="text" defaultValue={card.name} {...register('attributes.name', { required: true })} />
+          <textarea defaultValue={card.description} {...register('attributes.description', { required: true })} />
           <input type="submit" />
         </form>
     </>

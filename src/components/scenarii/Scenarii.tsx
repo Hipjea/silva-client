@@ -20,22 +20,20 @@ export default function Scenarii() {
   return (
     <>
       {scenarii.map(scenario => {
-        {
-          return scenario
-            ? (
-              <div css={resultRow} key={scenario.id}>
-                <Link to={`${scenario.id}`}>
-                  <div>
-                    {scenario.attributes.name}
-                  </div>
-                  <div>
-                    {scenario.attributes.author}
-                  </div>
-                </Link>
-              </div>
-            )
-            : null
-        }
+        return scenario
+          ? (
+            <div css={resultRow} key={scenario.id}>
+              <Link to={`${scenario.id}`}>
+                <div>
+                  {scenario.attributes.name}
+                </div>
+                <div>
+                  {scenario.attributes.author}
+                </div>
+              </Link>
+            </div>
+          )
+          : null
       })}
     </>
   )

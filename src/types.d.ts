@@ -1,3 +1,5 @@
+import { type } from "os"
+
 export interface AuthContextType {
   user: User
 }
@@ -40,8 +42,21 @@ export interface IScenario {
   }
 }
 
+export interface Cards {
+  id: number
+  type: string
+  attributes: Card
+}
+
 export interface Card {
   id: number
   attributes: {
+    name: string
+    description: string
+    note: string
+    typeable_type: string
+    typeable_id: number
+    created_at: string
+    updated_at: string
   }
 }

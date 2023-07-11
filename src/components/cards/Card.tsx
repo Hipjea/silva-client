@@ -5,6 +5,8 @@ import { useAppDispatch } from '../../hooks/redux-hooks'
 import { getCard } from '../../actions/cardsActions'
 import type { Card } from '../../types'
 import { useTranslation } from 'react-i18next'
+import { Link } from 'react-router-dom'
+import Table from '../Table'
 
 
 export default function Card() {
@@ -22,7 +24,13 @@ export default function Card() {
     card
       ?
       <>
-        Card
+        <Table
+          headers={['Id', 'Name', 'Description', 'note', 'typeable_type', 'typeable_id', 'Created at', 'Updated at',]}
+          data={[card]}
+        />
+        <Link to={`/cards/${id}/edit`} state={{ card: card }}>
+          <button>Edit</button>
+        </Link>
       </>
       : null
   )

@@ -32,6 +32,7 @@ export const PublicLayout = () => {
               <ListElement to="/protected" name={t('pages.titles.protectedPage')} />
               <ListElement to="/admin" name={t('pages.titles.adminPage')} />
               <ListElement to="/scenarii" name={t('pages.titles.scenariiPage')} />
+              <ListElement to="/cards" name={t('pages.titles.cardsPage')} />
               <AuthStatusElement />
             </ul>
           </nav>

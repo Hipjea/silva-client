@@ -2,7 +2,10 @@ import { BrowserRouter, Routes, Route } from "react-router-dom"
 import { RequireAuth, RequireAdmin } from './components/auth/Auth'
 import Scenarii from "./components/scenarii/Scenarii"
 import Scenario from "./components/scenarii/Scenario"
-import { EditForm } from "./components/scenarii/EditForm"
+import Cards from "./components/cards/Cards"
+import Card from "./components/cards/Card"
+import { ScenarioEditForm } from "./components/scenarii/EditForm"
+import { CardEditForm } from "./components/cards/EditForm"
 import {
   Layout,
   LoginPage,
@@ -40,7 +43,12 @@ const Router = () => {
           <Route path="/scenarii" element={<AdminLayout />}>
             <Route index={true} element={<Scenarii />} />
             <Route path=":id" element={<Scenario />} />
-            <Route path=":id/edit" element={<EditForm />} />
+            <Route path=":id/edit" element={<ScenarioEditForm />} />
+          </Route>
+          <Route path="/cards" element={<AdminLayout />}>
+            <Route index={true} element={<Cards />} />
+            <Route path=":id" element={<Card />} />
+            <Route path=":id/edit" element={<CardEditForm />} />
           </Route>
           <Route
             path="/protected"

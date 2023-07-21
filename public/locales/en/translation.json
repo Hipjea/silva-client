@@ -24,7 +24,8 @@
       "adminPage": "Administration",
       "homePage": "Home",
       "protectedPage": "Protected page",
-      "scenariiPage": "Scenarii"
+      "scenariiPage": "Scenarii",
+      "cardsPage": "Cards"
     }
   }
 }

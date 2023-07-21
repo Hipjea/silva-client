@@ -20,11 +20,19 @@ export const cardsSlice = createSlice({
   reducers: {
     fetchAll: (state, action: PayloadAction<Array<Card>>) => {
       state.cards = action.payload
+    },
+    update: (state, action) => {
+      const { id, attributes } = action.payload
+      const existingCard = state.cards.find(card => card.id === id)
+
+      if (existingCard) {
+        existingCard.attributes = attributes
+      }
     }
   }
 })
 
 // Action creators are generated for each case reducer function
-export const { fetchAll } = cardsSlice.actions
+export const { fetchAll, update } = cardsSlice.actions
 
 export default cardsSlice.reducer

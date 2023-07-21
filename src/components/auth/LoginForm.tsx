@@ -32,7 +32,7 @@ export const LoginForm = () => {
 
   useEffect(() => {
     if (loginAttempt) {
-      navigate(location.state && location.state.from.pathname ? location.state.from.pathname : '/', { replace: true })
+      navigate(location.state && location.state.from.pathname ? location.state.from.pathname : '/', { replace: false })
     }
   }, [loginAttempt])
 

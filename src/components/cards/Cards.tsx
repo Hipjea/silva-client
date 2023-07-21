@@ -8,6 +8,7 @@ import { useSelector } from 'react-redux'
 import { getCards } from '../../actions/cardsActions'
 import { resultRow } from '../../config'
 
+
 export default function Cards() {
   const cards = useSelector<RootState, Array<Card>>(state => state.cards.cards)
   const dispatch = useAppDispatch()
